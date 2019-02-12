@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Detail_event"></activity>
         <activity
             android:name=".LesEvenements"
             android:label="@string/title_activity_les_evenements"
@@ -29,9 +30,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Modif_compte">
-
-        </activity>
+        <activity android:name=".Modif_compte"></activity>
         <activity
             android:name=".InscriptionActivity"
             android:label="@string/title_activity_inscription" />

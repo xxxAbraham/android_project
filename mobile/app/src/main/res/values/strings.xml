@@ -30,7 +30,8 @@
     <string name="title_activity_les_evenements">LesEvenements</string>
     <string name="rechercher">Rechercher</string>
     <string name="rechercheUnderline"><u>Recherche</u></string>
-
+    <string name="participe">Je participe</string>
+    <string name="participePas">Je ne participe pas</string>
 
 
 </resources>
