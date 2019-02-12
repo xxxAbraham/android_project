@@ -17,14 +17,22 @@
             android:id="@+id/title_createevent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
             android:layout_marginBottom="23dp"
+            android:layout_marginTop="23dp"
             android:text="Création d'évènement"
             android:textColor="@android:color/background_light"
-            android:textSize="35sp"
-            android:layout_below="@+id/imageView2"
-            />
+            android:textSize="35sp" />
+
+        <ImageButton
+            android:id="@+id/btnBack_createevent"
+            android:layout_width="69dp"
+            android:layout_height="69dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </RelativeLayout>
 
@@ -207,7 +215,7 @@
             <EditText
                 android:id="@+id/txt_description"
                 android:layout_width="wrap_content"
-                android:layout_height="163dp"
+                android:layout_height="86dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textMultiLine" />
@@ -220,10 +228,12 @@
             android:layout_marginEnd="80dp">
 
             <Button
+                android:id="@+id/btnFinalCreate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/background_light"
+                android:layout_marginTop="25dp"
                 android:text="Créer"/>
         </LinearLayout>
 
