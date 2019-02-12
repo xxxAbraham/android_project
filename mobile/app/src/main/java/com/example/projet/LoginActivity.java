@@ -18,6 +18,9 @@ import android.widget.TextView;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+/**
+ @author Abraham Gabsi
+ */
 public class LoginActivity extends AppCompatActivity {
 
 

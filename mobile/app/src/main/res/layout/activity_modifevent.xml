@@ -47,14 +47,15 @@
             android:orientation="horizontal"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
+
             <ImageView
                 android:id="@+id/icon_nameModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@mipmap/ic_launcher_round"/>
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_user" />
             <TextView
                 android:id="@+id/tv_nameModif"
                 android:layout_width="wrap_content"
@@ -82,14 +83,15 @@
             android:orientation="horizontal"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
+
             <ImageView
                 android:id="@+id/icon_dateModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@mipmap/ic_launcher_round"/>
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_event" />
             <TextView
                 android:id="@+id/tv_dateModif"
                 android:layout_width="wrap_content"
@@ -117,14 +119,15 @@
             android:orientation="horizontal"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
+
             <ImageView
                 android:id="@+id/icon_adresseModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@mipmap/ic_launcher_round"/>
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_flag" />
             <TextView
                 android:id="@+id/tv_adresseModif"
                 android:layout_width="wrap_content"
@@ -188,14 +191,15 @@
             android:orientation="horizontal"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
+
             <ImageView
                 android:id="@+id/icon_descriptionModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@mipmap/ic_launcher_round"/>
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ic_book" />
             <TextView
                 android:id="@+id/tv_descriptionModif"
                 android:layout_width="wrap_content"
