@@ -14,7 +14,7 @@
 
 
         <TextView
-            android:id="@+id/title_createevent"
+            android:id="@+id/title_modifevent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -25,6 +25,14 @@
             android:textSize="35sp"
             android:layout_below="@+id/imageView2"
             />
+        <ImageButton
+            android:id="@+id/btnBack_modifevent"
+            android:layout_width="69dp"
+            android:layout_height="69dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </RelativeLayout>
 
@@ -40,7 +48,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <ImageView
-                android:id="@+id/icon_name"
+                android:id="@+id/icon_nameModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -48,7 +56,7 @@
                 android:layout_marginRight="10dp"
                 app:srcCompat="@mipmap/ic_launcher_round"/>
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_nameModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -64,7 +72,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <EditText
-                android:id="@+id/txt_name"
+                android:id="@+id/txt_nameModif"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -75,7 +83,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <ImageView
-                android:id="@+id/icon_date"
+                android:id="@+id/icon_dateModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -83,7 +91,7 @@
                 android:layout_marginRight="10dp"
                 app:srcCompat="@mipmap/ic_launcher_round"/>
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_dateModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -99,7 +107,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <EditText
-                android:id="@+id/txt_date"
+                android:id="@+id/txt_dateModif"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -110,7 +118,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <ImageView
-                android:id="@+id/icon_adresse"
+                android:id="@+id/icon_adresseModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -118,7 +126,7 @@
                 android:layout_marginRight="10dp"
                 app:srcCompat="@mipmap/ic_launcher_round"/>
             <TextView
-                android:id="@+id/tv_adresse"
+                android:id="@+id/tv_adresseModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -132,7 +140,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <EditText
-                android:id="@+id/txt_adresse"
+                android:id="@+id/txt_adresseModif"
                 android:layout_width="380dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -143,7 +151,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <TextView
-                android:id="@+id/tv_cp"
+                android:id="@+id/tv_cpModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -151,7 +159,7 @@
                 android:text="CP"
                 android:textSize="24dp"/>
             <TextView
-                android:id="@+id/tv_ville"
+                android:id="@+id/tv_villeModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -165,11 +173,11 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <EditText
-                android:id="@+id/txt_cp"
+                android:id="@+id/txt_cpModif"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"/>
             <EditText
-                android:id="@+id/txt_ville"
+                android:id="@+id/txt_villeModif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"/>
@@ -181,7 +189,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
             <ImageView
-                android:id="@+id/icon_description"
+                android:id="@+id/icon_descriptionModif"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -189,7 +197,7 @@
                 android:layout_marginRight="10dp"
                 app:srcCompat="@mipmap/ic_launcher_round"/>
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_descriptionModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -204,9 +212,9 @@
             android:layout_marginEnd="80dp">
 
             <EditText
-                android:id="@+id/txt_description"
+                android:id="@+id/txt_descriptionModif"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="86dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textMultiLine" />
@@ -219,13 +227,14 @@
             android:layout_marginEnd="80dp"
             android:gravity="center_horizontal">
             <TextView
-                android:id="@+id/tv_photo"
+                android:id="@+id/tv_photoModif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Photo de l'évènement"
                 android:textSize="24dp"/>
             <ImageView
+                android:id="@+id/img_photoModif"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 app:srcCompat="@mipmap/ic_launcher_round" />
@@ -238,10 +247,12 @@
             android:layout_marginEnd="80dp">
 
             <Button
+                android:id="@+id/btnFinalModif"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/background_light"
+                android:layout_marginTop="25dp"
                 android:text="Modifier"/>
         </LinearLayout>
 
