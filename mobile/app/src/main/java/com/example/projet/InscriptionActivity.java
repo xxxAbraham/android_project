@@ -59,6 +59,7 @@ public class InscriptionActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private Button mSubmit;
+    private TextView mGotAcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,16 @@ public class InscriptionActivity extends AppCompatActivity {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mSubmit = (Button) findViewById(R.id.inscription);
+        mGotAcount = (TextView) findViewById(R.id.gotaccount);
+        mGotAcount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent connect = new Intent(getApplicationContext(),LoginActivity.class);
+                connect.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(connect);
+                finish();
+            }
+        });
         mSubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,14 +122,17 @@ public class InscriptionActivity extends AppCompatActivity {
                                     AlertDialog alertDialog = new AlertDialog.Builder(InscriptionActivity.this).create();
                                     alertDialog.setTitle("Fin inscription");
                                     alertDialog.setMessage("Inscription Complète !");
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                    Intent connect = new Intent(getApplicationContext(),MainActivity.class);
-                                                    startActivity(connect);
-                                                }
-                                            });
+                                    alertDialog.setCanceledOnTouchOutside(true);
+                                    alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            Intent connect = new Intent(getApplicationContext(),MainActivity.class);
+                                            connect.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(connect);
+                                            finish();
+                                            }
+                                    }
+                                    );
                                     alertDialog.show();
                                 }
                             });
