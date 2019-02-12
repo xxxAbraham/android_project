@@ -87,6 +87,7 @@
                 android:text="Inscription" />
 
             <TextView
+                android:id="@+id/gotaccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yes_account" />
