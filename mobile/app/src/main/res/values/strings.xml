@@ -1,21 +1,29 @@
 <resources>
     <string name="app_name">Projet</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Connexion</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_pseudo">Pseudo</string>
+    <string name="action_sign_in">Inscription</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="sauve">Sauvegarder</string>
+    <string name="photoProfil">Photo de profil</string>
+    <string name="modif_compte">Modifier compte</string>
+    <string name="error_invalid_email">Cette adresse mail est invalide</string>
+    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
+    <string name="error_field_required">Ce champ est requis</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_inscription">Sign up</string>
+    <string name="title_activity_inscription">Inscription</string>
     <string name="no_account">Vous avez pas de compte ? Inscrivez vous</string>
     <string name="yes_account">Vous avez un compte ? Connectez-vous</string>
     <string name="pseudo">Pseudo</string>
+    <string name="title_activity_modif_compte">Modifier Compte</string>
+    <string name="title_activity_test">test</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>
