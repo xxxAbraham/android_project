@@ -38,6 +38,7 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".CreateEventActivity" />
         <activity android:name=".ModifEventActivity" />
+	<activity android:name=".ListEventAdminActivity" />
     </application>
 
 </manifest>
