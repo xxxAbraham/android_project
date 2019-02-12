@@ -14,12 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_modif_compte" />
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".Modif_compte">
+            android:name=".LesEvenements"
+            android:label="@string/title_activity_les_evenements"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,11 +24,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_modif_compte" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".Modif_compte">
+
+        </activity>
+        <activity
             android:name=".InscriptionActivity"
             android:label="@string/title_activity_inscription" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".CreateEventActivity"></activity>
-        <activity android:name=".ModifEventActivity"></activity>
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".ModifEventActivity" />
     </application>
 
 </manifest>
