@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:background="@android:color/holo_purple">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/pseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="23dp"
+            android:text="Pseudo"
+            android:textColor="@android:color/background_light"
+            android:textSize="55sp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:paddingBottom="25dp"
+            android:text="Créer Compte"
+            android:textAlignment="center"
+            android:textSize="36sp" />
+
+    </RelativeLayout>
+
+    <Const
+    <TextView
+        android:id="@+id/show_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voir évènements"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:paddingBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/my_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mes évènements"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:paddingBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/modif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modifier Compte"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        />
+
+
+    <TextView
+        android:id="@+id/déconnexion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Déconnexion"
+        android:textSize="24sp" />
+
+
+
+</LinearLayout>
