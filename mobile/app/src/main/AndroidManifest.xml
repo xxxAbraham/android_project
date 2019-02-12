@@ -30,6 +30,8 @@
             android:name=".InscriptionActivity"
             android:label="@string/title_activity_inscription" />
         <activity android:name=".MenuActivity" />
+        <activity android:name=".CreateEventActivity"></activity>
+        <activity android:name=".ModifEventActivity"></activity>
     </application>
 
 </manifest>
