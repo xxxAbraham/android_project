@@ -35,6 +35,10 @@
     <string name="rechercheUnderline"><u>Recherche</u></string>
     <string name="participe">Je participe</string>
     <string name="participePas">Je ne participe pas</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>
