@@ -23,7 +23,9 @@
             android:layout_marginTop="23dp"
             android:text="Création d'évènement"
             android:textColor="@android:color/background_light"
-            android:textSize="35sp" />
+
+            android:autoSizeTextType="uniform"
+            android:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <ImageButton
             android:id="@+id/btnBack_createevent"
@@ -35,7 +37,9 @@
             app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     </RelativeLayout>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Nom"
-                android:textSize="24dp"/>
+                android:autoSizeTextType="uniform"
+                android:autoSizePresetSizes="@array/autosize_text_sizes"/>
 
 
         </LinearLayout>
@@ -244,4 +249,5 @@
 
 
 </LinearLayout>
+</ScrollView>
 </LinearLayout>
