@@ -7,6 +7,9 @@
     <string name="prompt_pseudo">Pseudo</string>
     <string name="prompt_lieux">Adresse</string>
 
+    <string name="date">Date</string>
+    <string name="nom_event">Nom de l\'event</string>
+
     <string name="action_sign_in">Inscription</string>
     <string name="action_sign_in_short">Connexion</string>
     <string name="sauve">Sauvegarder</string>
@@ -27,7 +30,7 @@
     <string name="title_activity_test">test</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_les_evenements">LesEvenements</string>
+    <string name="title_activity_les_evenements">Les Evenements</string>
     <string name="rechercher">Rechercher</string>
     <string name="rechercheUnderline"><u>Recherche</u></string>
     <string name="participe">Je participe</string>
