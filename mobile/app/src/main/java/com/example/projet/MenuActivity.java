@@ -1,22 +1,28 @@
 package com.example.projet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Bundle bundle = getIntent().getExtras();
-        final String pseudo = bundle.getString("KEY_PSEUDO");
+        //Bundle bundle = getIntent().getExtras();
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String pseudo = prefs.getString("pseudo", null);
+       /* final String pseudo = bundle.getString("KEY_PSEUDO");*/
         TextView name = (TextView) findViewById(R.id.pseudo);
         name.setText(pseudo);
-        final String mail = bundle.getString("KEY_MAIL");
+
+       /*final String mail = bundle.getString("KEY_MAIL");*/
+
         TextView create = (TextView) findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +55,6 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gomodif = new Intent(getApplicationContext(),Modif_compte.class);
-                gomodif.putExtra("KEY_MAIL",mail);
-                gomodif.putExtra("KEY_PSEUDO",pseudo);
                 startActivity(gomodif);
             }
         });

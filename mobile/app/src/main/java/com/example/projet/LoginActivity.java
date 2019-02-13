@@ -2,6 +2,7 @@ package com.example.projet;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -22,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.mail.internet.AddressException;
@@ -37,11 +39,18 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private TextView mNoAccount;
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    private HashMap<String,String> admin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        this.admin = new HashMap<String,String>();
+        admin.put("pseudo","admin");
+        admin.put("mail","admin");
+        admin.put("password","admin");
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -60,7 +69,20 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("IDENTIFICATION");
+                System.out.println(admin.get("mail") +"||"+ admin.get("password"));
+                if (mEmailView.getText().toString().equals(admin.get("mail")) && mPasswordView.getText().toString().equals(admin.get("password"))) {
+                    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                    editor.putString("pseudo", admin.get("pseudo"));
+                    editor.putString("mail", admin.get("mail"));
+                    editor.apply();
+                    startActivity(connect);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+                /*System.out.println("IDENTIFICATION");
                 String url = "http://10.0.2.2/api/membre";
                 Ion.with(getApplicationContext())
                         .load(url)
@@ -88,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }
-        });
+        });*/
 }
 }
 
