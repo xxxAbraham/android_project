@@ -57,6 +57,7 @@ public class Modif_compte extends AppCompatActivity implements LoaderCallbacks<C
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mPseudoView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -67,6 +68,12 @@ public class Modif_compte extends AppCompatActivity implements LoaderCallbacks<C
         setContentView(R.layout.activity_modif_compte);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPseudoView = (AutoCompleteTextView) findViewById(R.id.pseudo);
+        Bundle bundle = getIntent().getExtras();
+        final String mail = bundle.getString("KEY_MAIL");
+        final String pseudo = bundle.getString("KEY_PSEUDO");
+        mPseudoView.setText(pseudo);
+        mEmailView.setText(mail);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);

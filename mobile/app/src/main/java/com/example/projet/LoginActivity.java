@@ -14,6 +14,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import java.util.Iterator;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -28,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private TextView mNoAccount;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,43 +56,39 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        final Intent connect = new Intent(getApplicationContext(), MenuActivity.class);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = mEmailView.getText().toString();
-                View focusView = null;
-                boolean cancel = false;
-                if (TextUtils.isEmpty(email)) {
-                    mEmailView.setError(getString(R.string.error_field_required));
-                    focusView = mEmailView;
-                    cancel = true;
-                } else if (!isEmailValid(email)) {
-                    mEmailView.setError(getString(R.string.error_invalid_email));
-                    focusView = mEmailView;
-                    cancel = true;
-                }
-                if (cancel) {
-                    focusView.requestFocus();
-                } else {
-                    //TODO Identification de l'utilisateur
-                    Intent connect = new Intent(getApplicationContext(), MenuActivity.class);
-                    connect.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(connect);
-                    finish();
-                }
+                System.out.println("IDENTIFICATION");
+                String url = "http://10.0.2.2/api/membre";
+                Ion.with(getApplicationContext())
+                        .load(url)
+                        .asJsonArray()
+                        .setCallback(new FutureCallback<JsonArray>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonArray result) {
+                                String email = mEmailView.getText().toString();
+                                if (result == null) {
+                                    Toast.makeText(LoginActivity.this, "Error try again", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    System.out.println(result);
+                                    Iterator<JsonElement> ite = result.iterator();
+                                    while (ite.hasNext()) {
+                                        JsonObject item = ite.next().getAsJsonObject();
+                                        if (item.getAsJsonPrimitive("email").getAsString().equals(email)) {
+                                            connect.putExtra("KEY_MAIL", email);
+                                            connect.putExtra("KEY_PSEUDO", item.getAsJsonPrimitive("pseudo").getAsString());
+                                            finish();
+                                            startActivity(connect);
+                                        }
+                                    }
+                                    Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
-    }
-
-    private boolean isEmailValid(String email) {
-        boolean result = true;
-        try {
-            InternetAddress emailAddr = new InternetAddress(email);
-            emailAddr.validate();
-        } catch (AddressException ex) {
-            result = false;
-        }
-        return result;
-    }
+}
 }
 
