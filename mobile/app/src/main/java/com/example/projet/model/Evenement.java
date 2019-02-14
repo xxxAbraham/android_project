@@ -5,11 +5,11 @@ public class Evenement {
     String nom;
     String date;
     String adresse;
-    int codePostal;
+    String codePostal;
     String ville;
     String description;
 
-    public Evenement(String nom, String date, String adresse, int codePostal, String ville, String description) {
+    public Evenement(String nom, String date, String adresse, String codePostal, String ville, String description) {
         this.nom = nom;
         this.date = date;
         this.adresse = adresse;
@@ -42,11 +42,11 @@ public class Evenement {
         this.adresse = adresse;
     }
 
-    public int getCodePostal() {
+    public String getCodePostal() {
         return codePostal;
     }
 
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(String codePostal) {
         this.codePostal = codePostal;
     }
 
