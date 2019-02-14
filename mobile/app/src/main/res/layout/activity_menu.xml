@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="23dp"
-            android:text="Pseudo"
             android:textColor="@android:color/background_light"
             android:textSize="55sp"
             android:layout_below="@+id/imageView2"
@@ -37,14 +36,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp">
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:id="@+id/layout_create">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_toStartOf="@+id/create"
+            android:src="@drawable/ic_plus"/>
 
         <TextView
             android:id="@+id/create"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/create_event"
             style="@style/TitreMenu"/>
 
@@ -53,44 +61,67 @@
     <RelativeLayout
         android:id="@+id/layout_show_event"
         android:layout_below="@+id/layout_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-    <TextView
-        android:id="@+id/show_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_toStartOf="@+id/show_event"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_binoculars"/>
+    <TextView
+        android:id="@+id/show_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="Voir évènements"
         style="@style/TitreMenu"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_my_event"
-        android:layout_below="@+id/layout_show_event">
-
-    <TextView
-        android:id="@+id/my_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/layout_my_event"
+        android:gravity="center"
+        android:layout_below="@+id/layout_show_event">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_toStartOf="@+id/my_event"
+            android:src="@drawable/ic_treasure"/>
+    <TextView
+        android:id="@+id/my_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="Mes évènements"
         style="@style/TitreMenu"/>
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_modif"
-        android:layout_below="@+id/layout_my_event">
-
-    <TextView
-        android:id="@+id/modif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/layout_modif"
+        android:gravity="center"
+        android:layout_below="@+id/layout_my_event">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_toStartOf="@+id/modif"
+            android:src="@drawable/ic_plus"/>
+    <TextView
+        android:id="@+id/modif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="Modifier Compte"
         style="@style/TitreMenu"
         />

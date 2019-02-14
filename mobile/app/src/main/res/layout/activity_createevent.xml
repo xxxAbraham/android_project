@@ -11,18 +11,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/title_createevent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="23dp"
-            android:layout_marginTop="23dp"
             android:text="Création d'évènement"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp" />
+            style="@style/TitreHeader"
+             />
 
     </RelativeLayout>
 <ScrollView
@@ -31,8 +31,7 @@
     android:layout_weight="1">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
