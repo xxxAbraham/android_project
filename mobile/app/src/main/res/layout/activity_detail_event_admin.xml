@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Detail_event">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imagesGridToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_settings_black_36dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_centerHorizontal="true">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/titreEvent"
+                        style="@style/TitreHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Mes événements" />
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:id="@+id/pseudo_createur"
+                    style="@style/SousTitre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/titreEvent"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/pseudo" />
+
+                <ImageView
+                    android:id="@+id/img_event"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/pseudo_createur"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/adresse"
+                    style="@style/SousSousTitre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_event"
+                    android:layout_centerHorizontal="true"
+                    android:text="Mes événements" />
+
+                <TextView
+                    android:id="@+id/date"
+                    style="@style/SousSousTitre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/adresse"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/pseudo" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imagesGridToolbar">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
+            <TextView
+                android:id="@+id/titre_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description :"/>
+            <TextView
+                android:id="@+id/description"
+                android:layout_below="@+id/titre_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="5"/>
+            <TextView
+                android:id="@+id/titre_participant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participants :"
+                android:layout_below="@+id/description"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/titre_participant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerView"
+                android:orientation="horizontal">
+
+            </android.support.v7.widget.RecyclerView>
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:id="@+id/img_budget"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_below="@+id/recyclerView"/>
+            <TextView
+                android:id="@+id/titre_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget par personne : "
+                android:layout_below="@+id/recyclerView"
+                android:layout_toRightOf="@+id/img_budget"
+                android:layout_alignBottom="@+id/img_budget"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                />
+            <TextView
+                android:id="@+id/budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500 euros"
+                android:layout_below="@+id/recyclerView"
+                android:layout_toRightOf="@+id/titre_budget"
+                android:layout_alignBottom="@+id/img_budget"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                />
+            <LinearLayout
+                android:id="@+id/layout_thune"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/img_budget">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Je dois : "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500 euros"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donner"
+                android:layout_below="@+id/layout_thune"
+                style="@style/button"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_plus"
+        android:layout_margin="16dp" />
+</RelativeLayout>
