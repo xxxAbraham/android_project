@@ -30,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ public class Modif_compte extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    private ImageButton retour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,15 @@ public class Modif_compte extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        retour  = findViewById(R.id.retour);
+        retour.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent navigation = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(navigation);
+                finish();
+            }
+        });
 
     }
 
