@@ -16,8 +16,6 @@ public class ListEventAdminActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_accueil:
-                    bottomNavigation = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(bottomNavigation);
                     finish();
                     return true;
                 case R.id.navigation_creer:
