@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- menu/navigation.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_accueil"
+        android:icon="@drawable/ic_home"
+        android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/navigation_creer"
+        android:icon="@drawable/ic_plus"
+        android:title="@string/title_creer"/>
+
+    <item
+        android:id="@+id/navigation_les_events"
+        android:icon="@drawable/ic_binoculars"
+        android:title="@string/recherche"/>
+    <item
+        android:id="@+id/navigation_mes_events"
+        android:icon="@drawable/ic_treasure"
+        android:title="@string/title_my_events"/>
+</menu>

@@ -33,13 +33,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_les_evenements">Les Evenements</string>
     <string name="rechercher">Rechercher</string>
-    <string name="rechercheUnderline"><u>Recherche</u></string>
+    <string name="recherche">Recherche</string>
     <string name="participe">Je participe</string>
     <string name="participePas">Je ne participe pas</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_creer">Creer</string>
+    <string name="title_my_events">Mes events</string>
 
 
 </resources>

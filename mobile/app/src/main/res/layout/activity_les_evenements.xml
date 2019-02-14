@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LesEvenements">
+    tools:context=".LesEvenements"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/imagesGridToolbar"
@@ -23,14 +24,14 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/recherche"
-        android:layout_below="@+id/imagesGridToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,95 +164,17 @@
 
     </RelativeLayout>
     <ListView
-        android:layout_marginBottom="70dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/recherche">
+        android:layout_height="0dp"
+        android:layout_weight="1">
     </ListView>
-    <LinearLayout
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation"/>
 
-            <ImageView
-                android:id="@+id/home"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_home" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginBottom="5dp"
-                android:text="Accueil"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/create"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_plus" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginBottom="5dp"
-                android:text="Créer"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_binoculars" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="wrap_content"
-                android:text="@string/rechercheUnderline"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/treasure"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_treasure" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginBottom="5dp"
-                android:text="Mes events"/>
-
-        </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -16,36 +16,36 @@ public class LesEvenements extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_les_evenements);
-        ImageView home = (ImageView) findViewById(R.id.home);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent connect = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(connect);
-                finish();
-            }
-        });
-
-        ImageView create = (ImageView) findViewById(R.id.create);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent connect = new Intent(getApplicationContext(), CreateEventActivity.class);
-                startActivity(connect);
-                finish();
-            }
-        });
-
-
-        ImageView treasure = (ImageView) findViewById(R.id.treasure);
-        treasure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent connect = new Intent(getApplicationContext(), ListEventAdminActivity.class);
-                startActivity(connect);
-                finish();
-            }
-        });
+//        ImageView home = (ImageView) findViewById(R.id.home);
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent connect = new Intent(getApplicationContext(), MenuActivity.class);
+//                startActivity(connect);
+//                finish();
+//            }
+//        });
+//
+//        ImageView create = (ImageView) findViewById(R.id.create);
+//        create.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent connect = new Intent(getApplicationContext(), CreateEventActivity.class);
+//                startActivity(connect);
+//                finish();
+//            }
+//        });
+//
+//
+//        ImageView treasure = (ImageView) findViewById(R.id.treasure);
+//        treasure.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent connect = new Intent(getApplicationContext(), ListEventAdminActivity.class);
+//                startActivity(connect);
+//                finish();
+//            }
+//        });
 
     }
 

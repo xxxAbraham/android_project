@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
 
 
         <LinearLayout
@@ -154,7 +155,7 @@
     <GridView
         android:id="@+id/mygridview"
         android:layout_width="wrap_content"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:columnWidth="100dp"
@@ -165,7 +166,16 @@
         android:numColumns="2"
         android:stretchMode="spacingWidth"
         android:verticalSpacing="20dp"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_weight="1"/>
 
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation"/>
 
 </LinearLayout>
