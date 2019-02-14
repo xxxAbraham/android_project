@@ -157,6 +157,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="@style/button"
+                    android:layout_marginRight="10dp"
                     android:text="@string/rechercher"/>
         </LinearLayout>
 
