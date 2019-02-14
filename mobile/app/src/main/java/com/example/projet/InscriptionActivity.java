@@ -27,6 +27,7 @@ import javax.mail.internet.InternetAddress;
  @author Abraham Gabsi
  */
 public class InscriptionActivity extends AppCompatActivity {
+
     // UI references.
     private AutoCompleteTextView mPseudoView;
     private AutoCompleteTextView mEmailView;
@@ -78,7 +79,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
-                    String url = "http://localhost:3000/api/membre";
+                   /* String url = "http://localhost:3000/api/membre";
                     final JsonObject json = new JsonObject();
                     json.addProperty("pseudo", mPseudoView.getText().toString());
                     json.addProperty("password", mPasswordView.getText().toString());
@@ -108,7 +109,8 @@ public class InscriptionActivity extends AppCompatActivity {
                                     );
                                     alertDialog.show();
                                 }
-                            });
+                            });*/
+
                 }
             }
         });
