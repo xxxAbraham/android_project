@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Modif_compte">
 
     <!-- Login progress -->
@@ -28,12 +27,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageButton
-                android:layout_margin="10dp"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:background="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
