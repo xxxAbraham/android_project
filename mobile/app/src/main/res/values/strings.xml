@@ -22,6 +22,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="create_event">Créer évènement</string>
     <string name="title_activity_inscription">Inscription</string>
     <string name="no_account">Vous avez pas de compte ? Inscrivez vous</string>
     <string name="yes_account">Vous avez un compte ? Connectez-vous</string>
