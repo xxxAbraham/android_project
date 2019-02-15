@@ -79,37 +79,43 @@ public class InscriptionActivity extends AppCompatActivity {
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
-                   /* String url = "http://localhost:3000/api/membre";
+                   String url = "http://10.0.2.2:8080/api/membre/add";
                     final JsonObject json = new JsonObject();
                     json.addProperty("pseudo", mPseudoView.getText().toString());
-                    json.addProperty("password", mPasswordView.getText().toString());
                     json.addProperty("email", mEmailView.getText().toString());
+                    json.addProperty("password", mPasswordView.getText().toString());
                     Ion.with(InscriptionActivity.this)
                             .load(url)
-                            .setHeader("Content-Type: ", "application/json")
                             .setJsonObjectBody(json)
                             .asJsonObject()
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    System.out.println(json.toString());
                                     AlertDialog alertDialog = new AlertDialog.Builder(InscriptionActivity.this).create();
-                                    alertDialog.setTitle("Fin inscription");
-                                    alertDialog.setMessage("Inscription Complète !");
-                                    alertDialog.setCanceledOnTouchOutside(true);
-                                    alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                        @Override
-                                        public void onCancel(DialogInterface dialog) {
-                                            Intent connect = new Intent(getApplicationContext(),MainActivity.class);
-                                            connect.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(connect);
-                                            finish();
-                                            }
+                                    if (result.getAsJsonPrimitive("ok").getAsBoolean()==true) {
+                                        System.out.println(json.toString());
+                                        alertDialog.setTitle("Fin inscription");
+                                        alertDialog.setMessage("Inscription Complète !");
+                                        alertDialog.setCanceledOnTouchOutside(true);
+                                        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                                                            @Override
+                                                                            public void onCancel(DialogInterface dialog) {
+                                                                                Intent connect = new Intent(getApplicationContext(), MainActivity.class);
+                                                                                connect.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                                startActivity(connect);
+                                                                                finish();
+                                                                            }
+                                                                        }
+                                        );
                                     }
-                                    );
+                                    else {
+                                        alertDialog.setTitle("Problème");
+                                        alertDialog.setMessage("Compte existant !");
+                                        alertDialog.setCanceledOnTouchOutside(true);
+                                        }
                                     alertDialog.show();
                                 }
-                            });*/
+                            });
 
                 }
             }

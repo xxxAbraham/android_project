@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(admin.get("mail") +"||"+ admin.get("password"));
+               /* System.out.println(admin.get("mail") +"||"+ admin.get("password"));
                 if (mEmailView.getText().toString().equals(admin.get("mail")) && mPasswordView.getText().toString().equals(admin.get("password"))) {
                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                     editor.putString("pseudo", admin.get("pseudo"));
@@ -81,36 +81,29 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-                /*System.out.println("IDENTIFICATION");
-                String url = "http://10.0.2.2/api/membre";
+        });*/
+                System.out.println("IDENTIFICATION");
+                String url = "http://10.0.2.2:8080/api/membre";
+                final JsonObject json = new JsonObject();
+                json.addProperty("email", mEmailView.getText().toString());
+                json.addProperty("password", mPasswordView.getText().toString());
                 Ion.with(getApplicationContext())
                         .load(url)
-                        .asJsonArray()
-                        .setCallback(new FutureCallback<JsonArray>() {
+                        .setJsonObjectBody(json)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
                             @Override
-                            public void onCompleted(Exception e, JsonArray result) {
-                                String email = mEmailView.getText().toString();
+                            public void onCompleted(Exception e, JsonObject result) {
                                 if (result == null) {
                                     Toast.makeText(LoginActivity.this, "Error try again", Toast.LENGTH_SHORT).show();
                                 } else {
                                     System.out.println(result);
-                                    Iterator<JsonElement> ite = result.iterator();
-                                    while (ite.hasNext()) {
-                                        JsonObject item = ite.next().getAsJsonObject();
-                                        if (item.getAsJsonPrimitive("email").getAsString().equals(email)) {
-                                            connect.putExtra("KEY_MAIL", email);
-                                            connect.putExtra("KEY_PSEUDO", item.getAsJsonPrimitive("pseudo").getAsString());
-                                            finish();
-                                            startActivity(connect);
-                                        }
-                                    }
                                     Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             }
-        });*/
+        });
 }
 }
 
