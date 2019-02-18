@@ -102,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                         editor.putString("pseudo", result.getAsJsonPrimitive("pseudo").getAsString());
                                         editor.putString("mail",mEmailView.getText().toString());
+                                        editor.putString("id",result.getAsJsonPrimitive("id").getAsString());
+                                        editor.putString("password",result.getAsJsonPrimitive("password").getAsString());
                                         editor.apply();
                                         startActivity(connect);
                                         finish();
