@@ -83,13 +83,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });*/
                 System.out.println("IDENTIFICATION");
-                String url = "http://10.0.2.2:8080/api/membre";
-                final JsonObject json = new JsonObject();
-                json.addProperty("email", mEmailView.getText().toString());
-                json.addProperty("password", mPasswordView.getText().toString());
+                String url = "http://10.0.2.2:8080/api/membre/get/email/"+mEmailView.getText().toString();
                 Ion.with(getApplicationContext())
                         .load(url)
-                        .setJsonObjectBody(json)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
@@ -97,8 +93,22 @@ public class LoginActivity extends AppCompatActivity {
                                 if (result == null) {
                                     Toast.makeText(LoginActivity.this, "Error try again", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    System.out.println(result);
-                                    Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                                    System.out.println(result.getAsJsonPrimitive("email"));
+                                    System.out.println(mEmailView.getText().toString());
+                                    if (result.getAsJsonPrimitive("ok").getAsBoolean()==false){
+                                        Toast.makeText(LoginActivity.this, "Utilisateur n'existe pas", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(result.getAsJsonPrimitive("password").getAsString().equals(mPasswordView.getText().toString()) && result.getAsJsonPrimitive("email").getAsString().equals(mEmailView.getText().toString())){
+                                        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                        editor.putString("pseudo", result.getAsJsonPrimitive("pseudo").getAsString());
+                                        editor.putString("mail",mEmailView.getText().toString());
+                                        editor.apply();
+                                        startActivity(connect);
+                                        finish();
+                                    }
+                                    else {
+                                        Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });
