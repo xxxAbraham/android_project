@@ -1,6 +1,7 @@
 package com.example.projet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,13 +13,21 @@ import android.widget.TextView;
 
 import com.example.projet.model.Evenement;
 import com.example.projet.model.EventListAdminAdapter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ListEventAdminActivity extends AppCompatActivity {
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     GridView gridViewList;
-    ArrayList<Evenement> eventList = new ArrayList<>();
+    private ArrayList<Evenement> eventList;
 
 
     Intent bottomNavigation;
@@ -53,33 +62,26 @@ public class ListEventAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listeventadmin);
-
-
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        final String pseudo = prefs.getString("pseudo", null);
+        eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
-
-        this.eventList.add (new Evenement("event1", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event2", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event3", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event4", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event5", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event6", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event7", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event8", "1","2","3","4","5"));
-        this.eventList.add (new Evenement("event9", "1","2","3","4","5"));
-
-        Bundle extras = getIntent().getExtras();
-
-        if(extras!=null){
-            String name = extras.getString("theName");
-            String date = extras.getString("theDate");
-            String adresse = extras.getString("theAdress");
-            String codePost = extras.getString("theCP");
-            String ville = extras.getString("theVille");
-            String desc = extras.getString("theDesc");
-
-            eventList.add(new Evenement(name, date, adresse, codePost, ville, desc));
-        }
-
+        String url = "http://10.0.2.2:8080/api/evenement/get/pseudo/"+pseudo;
+        Ion.with(ListEventAdminActivity.this)
+                .load(url)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        Iterator it = result.iterator();
+                        while (it.hasNext()){
+                            JsonObject event = (JsonObject) it.next();
+                            eventList.add(new Evenement(event.get("title").getAsString(),
+                                    event.get("date").getAsString(),event.get("place").getAsString(),
+                                    "blablabla"));
+                        }
+                    }
+                });
 
         EventListAdminAdapter myAdapter=new EventListAdminAdapter(this,R.layout.grid_item,eventList);
         gridViewList.setAdapter(myAdapter);

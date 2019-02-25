@@ -1,6 +1,7 @@
 package com.example.projet;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,9 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 public class CreateEventActivity extends AppCompatActivity {
     Intent bottomNavigation;
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -44,7 +51,8 @@ public class CreateEventActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createevent);
-
+            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            final String pseudo = prefs.getString("pseudo", null);
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setSelectedItemId(R.id.navigation_creer);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -63,15 +71,31 @@ public class CreateEventActivity extends AppCompatActivity {
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url = "http://10.0.2.2:8080/api/evenement/add";
+                final JsonObject json = new JsonObject();
+                json.addProperty("pseudo", pseudo);
+                json.addProperty("title", name.getText().toString());
+                json.addProperty("date", date.getText().toString());
+                json.addProperty("place", adresse.getText().toString()+" "
+                        + codePost.getText().toString()+" "+ ville.getText().toString());
+                Ion.with(CreateEventActivity.this)
+                        .load(url)
+                        .setJsonObjectBody(json)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                if (result.getAsJsonPrimitive("ok").getAsBoolean()==true) {
+                                    startActivity(creating);
+                                }
+                                else{
+                                    Toast.makeText(CreateEventActivity.this, "Champs incorecte",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
 
-                creating.putExtra("theName", name.getText());
-                creating.putExtra("theDate", date.getText());
-                creating.putExtra("theAdress", adresse.getText());
-                creating.putExtra("theCP", codePost.getText());
-                creating.putExtra("theVille", ville.getText());
-                creating.putExtra("theDesc", desc.getText());
 
-                startActivity(creating);
 
 
 

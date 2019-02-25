@@ -93,16 +93,16 @@ public class LoginActivity extends AppCompatActivity {
                                 if (result == null) {
                                     Toast.makeText(LoginActivity.this, "Error try again", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    System.out.println(result.getAsJsonPrimitive("email"));
+                                    System.out.println(result.get("email").getAsString());
                                     System.out.println(mEmailView.getText().toString());
-                                    if (result.getAsJsonPrimitive("ok").getAsBoolean()==false){
+                                    if (result.get("exist").getAsBoolean()==false){
                                         Toast.makeText(LoginActivity.this, "Utilisateur n'existe pas", Toast.LENGTH_SHORT).show();
                                     }
                                     else if(result.getAsJsonPrimitive("password").getAsString().equals(mPasswordView.getText().toString()) && result.getAsJsonPrimitive("email").getAsString().equals(mEmailView.getText().toString())){
                                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                         editor.putString("pseudo", result.getAsJsonPrimitive("pseudo").getAsString());
                                         editor.putString("mail",mEmailView.getText().toString());
-                                        editor.putString("id",result.getAsJsonPrimitive("id").getAsString());
+
                                         editor.putString("password",result.getAsJsonPrimitive("password").getAsString());
                                         editor.apply();
                                         startActivity(connect);
