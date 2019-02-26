@@ -6,12 +6,14 @@ public class Evenement {
     String date;
     String adresse;
     String description;
+    String createur;
 
-    public Evenement(String nom, String date, String adresse, String description) {
+    public Evenement(String nom, String date, String adresse, String description,String createur) {
         this.nom = nom;
         this.date = date;
         this.adresse = adresse;
         this.description = description;
+        this.createur = createur;
     }
 
     public String getNom() {
@@ -38,12 +40,19 @@ public class Evenement {
         this.adresse = adresse;
     }
 
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCreateur() {
+        return createur;
+    }
+
+    public void setCreateur(String createur) {
+        this.createur = createur;
     }
 }
