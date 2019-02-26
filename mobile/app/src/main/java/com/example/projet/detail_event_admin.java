@@ -27,6 +27,7 @@ public class detail_event_admin extends AppCompatActivity {
     TextView nom_event, pseudo, description, budget, balance;
     ListView list_invites;
     ArrayAdapterDetailAdmin myadpater;
+    String eventid = "";
     Button donner, plus;
     ImageButton reglage;
     @Override
@@ -48,7 +49,6 @@ public class detail_event_admin extends AppCompatActivity {
 
         pseudo.setText(prefs.getString("pseudo", ""));
         final Intent intent = getIntent();
-        String eventid = "";
         if(intent.hasExtra("eventid")){
             eventid = intent.getStringExtra("eventid");
         }
@@ -71,7 +71,7 @@ public class detail_event_admin extends AppCompatActivity {
                             invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
                         }
                     }});
-        String url2 = "http://10.0.2.2:8080/api/evenement/getExpenseTotal/"+eventid;
+        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url2)
                 .asJsonObject()
@@ -101,6 +101,15 @@ public class detail_event_admin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(detail_event_admin.this, Modif_compte.class);
                 startActivity(intent);
+            }
+        });
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentplus = new Intent(detail_event_admin.this,ListPseudoAdminActivity.class);
+                intent.putExtra("eventid",eventid);
+                startActivity(intentplus);
             }
         });
 
