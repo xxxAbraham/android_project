@@ -52,7 +52,7 @@ public class CreateEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createevent);
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-            final String pseudo = prefs.getString("pseudo", null);
+            final String pseudo = prefs.getString("id", null);
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setSelectedItemId(R.id.navigation_creer);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -73,7 +73,7 @@ public class CreateEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String url = "http://10.0.2.2:8080/api/evenement/add";
                 final JsonObject json = new JsonObject();
-                json.addProperty("pseudo", pseudo);
+                json.addProperty("userId", pseudo);
                 json.addProperty("title", name.getText().toString());
                 json.addProperty("date", date.getText().toString());
                 json.addProperty("place", adresse.getText().toString()+" "
@@ -85,7 +85,7 @@ public class CreateEventActivity extends AppCompatActivity {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                if (result.getAsJsonPrimitive("ok").getAsBoolean()==true) {
+                                if (result.get("ok").getAsBoolean()) {
                                     startActivity(creating);
                                 }
                                 else{

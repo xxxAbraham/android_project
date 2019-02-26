@@ -41,9 +41,6 @@ public class ListEventAdminActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.navigation_creer:
-                    bottomNavigation = new Intent(getApplicationContext(), CreateEventActivity.class);
-                    startActivity(bottomNavigation);
-                    finish();
                     return true;
                 case R.id.navigation_les_events:
                     bottomNavigation = new Intent(getApplicationContext(), LesEvenements.class);
@@ -51,6 +48,9 @@ public class ListEventAdminActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.navigation_mes_events:
+                    bottomNavigation = new Intent(getApplicationContext(), ListEventAdminActivity.class);
+                    startActivity(bottomNavigation);
+                    finish();
                     return true;
             }
             return false;
@@ -62,11 +62,14 @@ public class ListEventAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listeventadmin);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.navigation_mes_events);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        final String pseudo = prefs.getString("pseudo", null);
+        final String pseudo = prefs.getString("id", "");
         eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
-        String url = "http://10.0.2.2:8080/api/evenement/get/pseudo/"+pseudo;
+        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+pseudo;
         Ion.with(ListEventAdminActivity.this)
                 .load(url)
                 .asJsonArray()
