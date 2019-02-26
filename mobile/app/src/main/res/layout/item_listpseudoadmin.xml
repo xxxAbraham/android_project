@@ -9,18 +9,20 @@
     android:gravity="center">
 
     <ImageView
+        android:id="@+id/imgListPseudo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="5dp"
-        android:background="@mipmap/ic_launcher_round" />
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_delete_36dp" />
 
     <TextView
+        android:id="@+id/tvListPseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pseudo"
-        android:textSize="30dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
         android:textColor="@color/colorPrimary"
-        android:textStyle="bold"/>
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
 </LinearLayout>
