@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -98,5 +99,16 @@ public class LesEvenements extends AppCompatActivity {
                         }
                     }
                 });
+
+        mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Evenement tmp = (Evenement) mlistView.getItemAtPosition(position);
+                Intent itemIntent = new Intent(LesEvenements.this, Detail_event.class);
+
+                itemIntent.putExtra("eventid", tmp.getId());
+                startActivity(itemIntent);
+            }
+        });
     }
 }

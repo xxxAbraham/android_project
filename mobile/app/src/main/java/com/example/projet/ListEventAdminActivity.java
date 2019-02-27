@@ -70,6 +70,9 @@ public class ListEventAdminActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final String id = prefs.getString("id", "");
         final String pseudo = prefs.getString("pseudo", "");
+        final String date = prefs.getString("date", "");
+        final String place = prefs.getString("place", "");
+
         eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
         String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+id;
@@ -83,8 +86,9 @@ public class ListEventAdminActivity extends AppCompatActivity {
                         while (it.hasNext()){
                             JsonObject event = (JsonObject) it.next();
                             eventList.add(new Evenement(event.get("id").getAsString(),event.get("title").getAsString(),
-                                    event.get("date").getAsString(),event.get("place").getAsString(),
+                                    date,place,
                                     "blablabla",pseudo));
+
                         }
                     }
                 });
@@ -103,6 +107,14 @@ public class ListEventAdminActivity extends AppCompatActivity {
                 startActivity(itemIntent);
             }
         });
+
+        /*------Filters------*/
+
+        TextView theName = (TextView) findViewById(R.id.txt_nameListeventadmin);
+        TextView theAdresse = (TextView) findViewById(R.id.txt_adresseListeventadmin);
+        TextView theDate = (TextView) findViewById(R.id.txt_dateListeventadmin);
+
+
 
 
 
