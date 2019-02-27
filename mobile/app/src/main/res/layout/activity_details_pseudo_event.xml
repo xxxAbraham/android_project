@@ -67,7 +67,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_coins"
             app:srcCompat="@drawable/ic_coins" />
 
         <TextView
@@ -87,9 +87,10 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_equality"
             app:srcCompat="@drawable/ic_equality" />
         <TextView
+            android:id="@+id/balance"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

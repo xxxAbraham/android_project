@@ -133,7 +133,7 @@ public class detail_event_admin extends AppCompatActivity {
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //AlertDialog don = new AlertDialog(detail_event_admin.this);
             }
         });
 

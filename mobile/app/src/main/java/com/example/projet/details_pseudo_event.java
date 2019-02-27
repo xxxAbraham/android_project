@@ -3,6 +3,7 @@ package com.example.projet;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,17 +65,19 @@ public class details_pseudo_event extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     }
                 });
-        String url_balance = "http://10.0.2.2:8080/api/expenseManager/get/"+pseudoid+"/"+eventid;
+        String url_balance = "http://10.0.2.2:8080/api/owing/get/"+pseudoid+"/"+eventid;
         Ion.with(details_pseudo_event.this)
                 .load(url_balance)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        balance.setText(result.get("owing").toString());
+                        Log.e("Result", result.toString());
+                        Double bal = result.get("owing").getAsDouble();
+                        balance.setText(bal.toString());
                     }
                 });
-        String url_economy = "http://10.0.2.2:8080/api/depense/getAllGroupByEvent/"+eventid;
+        String url_economy = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
         Ion.with(details_pseudo_event.this)
                 .load(url_economy)
                 .asJsonObject()
