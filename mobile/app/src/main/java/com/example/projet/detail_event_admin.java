@@ -114,7 +114,7 @@ public class detail_event_admin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentplus = new Intent(detail_event_admin.this,ListPseudoAdminActivity.class);
-                intent.putExtra("eventid",eventid);
+                intentplus.putExtra("eventid",eventid);
                 startActivity(intentplus);
             }
         });

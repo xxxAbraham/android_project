@@ -40,7 +40,7 @@
         <activity android:name=".ModifEventActivity" />
         <activity android:name=".ListEventAdminActivity" />
         <activity android:name=".detail_event_admin" />
-
+        <activity android:name=".ListPseudoAdminActivity" />
     </application>
 
 </manifest>

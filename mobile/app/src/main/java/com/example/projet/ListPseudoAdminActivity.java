@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.projet.model.Evenement;
 import com.example.projet.model.EventListAdminAdapter;
+import com.example.projet.model.PseudoListAdminAdapter;
 import com.example.projet.model.User;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -47,37 +49,31 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
             eventid = intent.getStringExtra("eventid");
         }
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        final String pseudo = prefs.getString("id", "");
+        final String pseudo = prefs.getString("pseudo", "");
         pseudo_creator = (TextView) findViewById(R.id.pseudo_createur);
         pseudo_creator.setText(pseudo);
-
         pseudoList  = new ArrayList<>();
         listViewPseudo = (ListView) findViewById(R.id.listPseudo);
-        String url = "http://localhost:8080/api/evenement/get/"+eventid;
-        Ion.with(ListPseudoAdminActivity.this)
+        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+       Ion.with(ListPseudoAdminActivity.this)
                 .load(url)
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        Iterator<JsonElement> it = result.iterator();
-                        while (it.hasNext()){
-                            JsonObject event = it.next().getAsJsonObject();
-                            JsonArray a = event.getAsJsonArray("listUser");
-                            Iterator<JsonElement> iv = a.iterator();
-                            while (iv.hasNext()){
-                                JsonObject o = iv.next().getAsJsonObject();
-                                String m = o.get("username").getAsString();
-                                pseudoList.add(m);
-                            }
-                        }
-                    }
-                });
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                                 @Override
+                                 public void onCompleted(Exception e, JsonObject result) {
+                                     JsonArray a = result.get("userList").getAsJsonArray();
+                                     Iterator<JsonElement> iv = a.iterator();
+                                     while (iv.hasNext()){
+                                         JsonObject o = iv.next().getAsJsonObject();
+                                         String m = o.get("username").getAsString();
+                                         pseudoList.add(m);
+                                     }
+                                 }
+                             });
 
-        EventListAdminAdapter myAdapter=new EventListAdminAdapter(this,R.layout.item_listpseudoadmin
-                ,pseudoList);
+       PseudoListAdminAdapter myAdapter = new PseudoListAdminAdapter(this, R.layout.item_listpseudoadmin
+                                , pseudoList);
         listViewPseudo.setAdapter(myAdapter);
-
 
     }
 }
