@@ -90,9 +90,10 @@ public class LesEvenements extends AppCompatActivity {
                             while (it.hasNext()) {
                                 JsonObject event = (JsonObject) it.next();
                                 System.out.println(event);
-                                monAdapter.add(new Evenement(event.get("title").getAsString(),
+                                monAdapter.add(new Evenement(event.get("id").getAsString(),
+                                        event.get("title").getAsString(),
                                         event.get("date").getAsString(), event.get("place").getAsString(),
-                                        "blablabla", "Moi"));
+                                        "blablabla", pseudo ));
                             }
                         }
                     }

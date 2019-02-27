@@ -37,7 +37,7 @@ public class EventAdapter extends ArrayAdapter<Evenement> {
         {
 
             TextView tv1 = (TextView)view.findViewById(R.id.pseudo_createur);
-            tv1.setText(String.valueOf(v.getCreateur()));
+            tv1.setText(String.valueOf(v.getCreator()));
 
             TextView tv2 = (TextView)view.findViewById(R.id.nom_event);
             tv2.setText(String.valueOf(v.getNom()));

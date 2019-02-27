@@ -99,7 +99,7 @@ public class ListEventAdminActivity extends AppCompatActivity {
                 Evenement tmp = (Evenement) gridViewList.getItemAtPosition(position);
                 Intent itemIntent = new Intent(ListEventAdminActivity.this, detail_event_admin.class);
 
-                itemIntent.putExtra("eventId", tmp.getId());
+                itemIntent.putExtra("eventid", tmp.getId());
                 startActivity(itemIntent);
             }
         });

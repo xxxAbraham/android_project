@@ -2,6 +2,7 @@ package com.example.projet;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,8 @@ public class detail_event_admin extends AppCompatActivity {
     ListView list_invites;
     ArrayAdapterDetailAdmin myadpater;
     String eventid = "";
-    Button donner, plus;
+    FloatingActionButton plus;
+    Button donner;
     ImageButton reglage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +64,12 @@ public class detail_event_admin extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         String nom = result.get("title").getAsString();
-                        String desc = result.get("description").getAsString();
+                        Object tmp =result.get("decription");
+                        if(tmp != null){
+                            String desc = result.get("description").getAsString();
+                            description.setText(desc);
+                        }
                         nom_event.setText(nom);
-                        description.setText(desc);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
                         while (it.hasNext()){
@@ -72,7 +77,7 @@ public class detail_event_admin extends AppCompatActivity {
                             invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
                         }
                     }});
-        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+      /*  String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url2)
                 .asJsonObject()
@@ -93,7 +98,7 @@ public class detail_event_admin extends AppCompatActivity {
                         Double bal = result.get("owing").getAsDouble();
                         balance.setText(bal.toString());
                     }});
-
+*/
         myadpater = new ArrayAdapterDetailAdmin(this,invites);
         list_invites.setAdapter(myadpater);
 
