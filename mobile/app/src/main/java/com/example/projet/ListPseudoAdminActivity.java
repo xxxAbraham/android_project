@@ -1,6 +1,7 @@
 package com.example.projet;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,12 +11,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,9 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
     TextView pseudo_creator;
     FloatingActionButton btnajoutpseudo;
     PseudoListAdminAdapter myAdapter;
+    EditText pseudoajouter;
+    String idpseudo = "";
+    String nompseudo = "";
 
 
     @Override
@@ -95,7 +102,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                 alertDialog2.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog
+
                                 final JsonObject json = new JsonObject();
                                 json.addProperty("idObject", pseudoList.get(i).getId());
                                 json.addProperty("typeObject", "user");
@@ -132,8 +139,53 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ListPseudoAdminActivity.this);
+                    builder.setTitle("Ajout pseudo à l'event");
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogLayout = inflater.inflate(R.layout.dialog_addpseudoevent, null);
+                    builder.setView(dialogLayout);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            pseudoajouter = (EditText) findViewById(R.id.ajoutpseudoET);
+                            String recup = pseudoajouter.getText().toString();
+
+                            for (User u:pseudoList) {
+                                if(u.getNom().equals(recup)){
+                                    idpseudo = u.getId();
+                                    nompseudo = u.getNom();
+                                }
+                            }
+                            final JsonObject json = new JsonObject();
+                            json.addProperty("idObject", idpseudo);
+                            json.addProperty("typeObject", "user");
+                            String url = "http://10.0.2.2:8080/api/evenement/addUser/"+eventid;
+                            Ion.with(ListPseudoAdminActivity.this)
+                                    .load("PUT",url)
+                                    .setJsonObjectBody(json)
+                                    .asJsonObject()
+                                    .setCallback(new FutureCallback<JsonObject>() {
+                                        @Override
+                                        public void onCompleted(Exception e, JsonObject result) {
+                                            pseudoList.add(new User(nompseudo,idpseudo));
+                                            myAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                        }
+                    });
+
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            builder.setCancelable(true);
+                        }
+                    });
+                    builder.show();
+
             }
         });
+
 
 
     }
