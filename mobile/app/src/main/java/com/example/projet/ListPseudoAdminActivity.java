@@ -143,12 +143,12 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                     builder.setTitle("Ajout pseudo à l'event");
 
                     LayoutInflater inflater = getLayoutInflater();
-                    View dialogLayout = inflater.inflate(R.layout.dialog_addpseudoevent, null);
+                    final View dialogLayout = inflater.inflate(R.layout.dialog_addpseudoevent, null);
                     builder.setView(dialogLayout);
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            pseudoajouter = (EditText) findViewById(R.id.ajoutpseudoET);
+                            pseudoajouter = dialogLayout.findViewById(R.id.ajoutpseudoET);
                             String recup = pseudoajouter.getText().toString();
 
                             String url2 = "http://10.0.2.2:8080/api/membre/get/pseudo/"+recup;
@@ -160,23 +160,24 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                         public void onCompleted(Exception e, JsonObject result) {
                                             idpseudo = result.get("id").getAsString();
                                             nompseudo = result.get("username").getAsString();
-                                        }
-                                    });
-                            final JsonObject json = new JsonObject();
-                            json.addProperty("idObject", idpseudo);
-                            json.addProperty("typeObject", "user");
-                            String url = "http://10.0.2.2:8080/api/evenement/addUser/"+eventid;
-                            Ion.with(ListPseudoAdminActivity.this)
-                                    .load("PUT",url)
-                                    .setJsonObjectBody(json)
-                                    .asJsonObject()
-                                    .setCallback(new FutureCallback<JsonObject>() {
-                                        @Override
-                                        public void onCompleted(Exception e, JsonObject result) {
-                                            pseudoList.add(new User(nompseudo,idpseudo));
-                                            myAdapter.notifyDataSetChanged();
-                                        }
-                                    });
+
+
+                                            final JsonObject json = new JsonObject();
+                                            json.addProperty("idObject", idpseudo);
+                                            json.addProperty("typeObject", "user");
+                                            String url = "http://10.0.2.2:8080/api/evenement/addUser/" + eventid;
+                                            Ion.with(ListPseudoAdminActivity.this)
+                                                    .load("PUT", url)
+                                                    .setJsonObjectBody(json)
+                                                    .asJsonObject()
+                                                    .setCallback(new FutureCallback<JsonObject>() {
+                                                        @Override
+                                                        public void onCompleted(Exception e, JsonObject result) {
+                                                            pseudoList.add(new User(nompseudo, idpseudo));
+                                                            myAdapter.notifyDataSetChanged();
+                                                        }
+                                                    });
+                                        }});
                         }
                     });
 

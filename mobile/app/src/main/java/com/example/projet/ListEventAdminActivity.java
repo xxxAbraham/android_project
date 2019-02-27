@@ -106,20 +106,5 @@ public class ListEventAdminActivity extends AppCompatActivity {
             }
         });
 
-        /*------Filters------*/
-
-        TextView theName = (TextView) findViewById(R.id.txt_nameListeventadmin);
-        TextView theAdresse = (TextView) findViewById(R.id.txt_adresseListeventadmin);
-        TextView theDate = (TextView) findViewById(R.id.txt_dateListeventadmin);
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -79,28 +79,27 @@ public class detail_event_admin extends AppCompatActivity {
                             invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
                         }
                     }});
-      /*  String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+      String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url2)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        Double total = result.get("total").getAsDouble();
-                        budget.setText(total.toString());
+//                        Double total = result.get("total").getAsDouble();
+  //                      budget.setText(total.toString());
                     }});
 
         String url3 = "http://10.0.2.2:8080/api/expenseManager/getMax/"+prefs.getString("id","")+"/"+eventid;
         Ion.with(detail_event_admin.this)
-                .load(url2)
+                .load(url3)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        Double bal = result.get("owing").getAsDouble();
-                        balance.setText(bal.toString());
+//                        Double bal = result.get("owing").getAsDouble();
+   //                     balance.setText(bal.toString());
                     }});
-*/
         myadpater = new ArrayAdapterDetailAdmin(this,invites);
         list_invites.setAdapter(myadpater);
         list_invites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
