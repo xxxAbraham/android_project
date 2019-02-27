@@ -105,8 +105,9 @@ public class detail_event_admin extends AppCompatActivity {
         reglage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(detail_event_admin.this, Modif_compte.class);
-                startActivity(intent);
+                Intent intentreglage = new Intent(detail_event_admin.this, ModifEventActivity.class);
+                intentreglage.putExtra("eventid",eventid);
+                startActivity(intentreglage);
             }
         });
 

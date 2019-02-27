@@ -153,44 +153,6 @@
             android:orientation="horizontal"
             android:layout_marginStart="80dp"
             android:layout_marginEnd="80dp">
-            <TextView
-                android:id="@+id/tv_cpModif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="140dp"
-                android:text="CP"
-                android:textSize="24dp"/>
-            <TextView
-                android:id="@+id/tv_villeModif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Ville"
-                android:textSize="24dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp">
-            <EditText
-                android:id="@+id/txt_cpModif"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:id="@+id/txt_villeModif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp">
 
             <ImageView
                 android:id="@+id/icon_descriptionModif"
