@@ -68,10 +68,11 @@ public class ListEventAdminActivity extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_mes_events);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        final String pseudo = prefs.getString("id", "");
+        final String id = prefs.getString("id", "");
+        final String pseudo = prefs.getString("pseudo", "");
         eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
-        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+pseudo;
+        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+id;
         Ion.with(ListEventAdminActivity.this)
                 .load(url)
                 .asJsonArray()
@@ -83,7 +84,7 @@ public class ListEventAdminActivity extends AppCompatActivity {
                             JsonObject event = (JsonObject) it.next();
                             eventList.add(new Evenement(event.get("id").getAsString(),event.get("title").getAsString(),
                                     event.get("date").getAsString(),event.get("place").getAsString(),
-                                    "blablabla"));
+                                    "blablabla",pseudo));
                         }
                     }
                 });
