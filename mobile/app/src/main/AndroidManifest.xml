@@ -41,6 +41,7 @@
         <activity android:name=".ListEventAdminActivity" />
         <activity android:name=".detail_event_admin" />
         <activity android:name=".ListPseudoAdminActivity" />
+        <activity android:name=".details_pseudo_event" />
     </application>
 
 </manifest>
