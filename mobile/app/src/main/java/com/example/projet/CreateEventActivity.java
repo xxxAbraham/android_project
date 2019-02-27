@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +60,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
 
         final TextView name = (TextView) findViewById(R.id.txt_name);
+
         final TextView date = (TextView) findViewById(R.id.txt_date);
         final TextView adresse = (TextView) findViewById(R.id.txt_adresse);
         final TextView codePost = (TextView) findViewById(R.id.txt_cp);
@@ -71,35 +73,61 @@ public class CreateEventActivity extends AppCompatActivity {
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://10.0.2.2:8080/api/evenement/add";
-                final JsonObject json = new JsonObject();
-                json.addProperty("userId", pseudo);
-                json.addProperty("title", name.getText().toString());
-                json.addProperty("date", date.getText().toString());
-                json.addProperty("place", adresse.getText().toString()+" "
-                        + codePost.getText().toString()+" "+ ville.getText().toString());
-                json.addProperty("description",desc.getText().toString());
-                Ion.with(CreateEventActivity.this)
-                        .load(url)
-                        .setJsonObjectBody(json)
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                if (result.get("ok").getAsBoolean()) {
-                                    startActivity(creating);
+                View focusView = null;
+                boolean cancel = false;
+                if (TextUtils.isEmpty(name.getText())){
+                    name.setError( "Entrez un nom!" );
+                    focusView = name;
+                    cancel = true;
+                }
+                if (TextUtils.isEmpty(date.getText())){
+                    date.setError( "Entrez une date (yyyy-mm-dd)!" );
+                    focusView = date;
+                    cancel = true;
+                }
+                if (TextUtils.isEmpty(adresse.getText())){
+                    adresse.setError( "Entrez une adresse!" );
+                    focusView = adresse;
+                    cancel = true;
+                }
+                if (TextUtils.isEmpty(codePost.getText())){
+                    codePost.setError( "Entrez un code postal!" );
+                    focusView = codePost;
+                    cancel = true;
+                }
+                if (TextUtils.isEmpty(ville.getText())){
+                    ville.setError( "Entrez un nom de ville!" );
+                    focusView = ville;
+                    cancel = true;
+                }
+                if (cancel) {
+                    focusView.requestFocus();
+                }else {
+                    String url = "http://10.0.2.2:8080/api/evenement/add";
+                    final JsonObject json = new JsonObject();
+                    json.addProperty("userId", pseudo);
+                    json.addProperty("title", name.getText().toString());
+                    json.addProperty("date", date.getText().toString());
+                    json.addProperty("place", adresse.getText().toString() + " "
+                            + codePost.getText().toString() + " " + ville.getText().toString());
+                    json.addProperty("description", desc.getText().toString());
+                    Ion.with(CreateEventActivity.this)
+                            .load(url)
+                            .setJsonObjectBody(json)
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    if (result.get("ok").getAsBoolean()) {
+                                        startActivity(creating);
+                                    } else {
+                                        Toast.makeText(CreateEventActivity.this, "Champs incorecte",
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                                else{
-                                    Toast.makeText(CreateEventActivity.this, "Champs incorecte",
-                                            Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                            });
 
-
-
-
-
+                }
             }
         });
 
