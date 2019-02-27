@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -102,7 +103,16 @@ public class detail_event_admin extends AppCompatActivity {
 */
         myadpater = new ArrayAdapterDetailAdmin(this,invites);
         list_invites.setAdapter(myadpater);
-
+        list_invites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User tmp = (User) list_invites.getItemAtPosition(position);
+                Intent detailPseudo = new Intent(detail_event_admin.this, details_pseudo_event.class);
+                detailPseudo.putExtra("eventid", eventid);
+                detailPseudo.putExtra("pseudoid", tmp.getId());
+                startActivity(detailPseudo);
+            }
+        });
         reglage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
