@@ -71,7 +71,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         datePickerDialog = new DatePickerDialog(
-                getApplicationContext(), CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
+                CreateEventActivity.this, CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
         final TextView name = (TextView) findViewById(R.id.txt_name);
 
         date = (TextView) findViewById(R.id.txt_date);
@@ -158,7 +158,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         Log.i("ON DATA SET", "onDateSet: "+ i + " *** "+ i1 + " *** "+ i2);
-
+        i1 ++;
         if (i1 < 10){
             month = "0"+i1;
         } else {
