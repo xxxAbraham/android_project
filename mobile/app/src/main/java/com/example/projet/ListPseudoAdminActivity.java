@@ -90,7 +90,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                         ListPseudoAdminActivity.this);
                 alertDialog2.setTitle("Confirm Delete...");
                 alertDialog2.setMessage("Are you sure you want delete this file?");
-                alertDialog2.setIcon(R.drawable.ic_delete_36dp.xml);
+                alertDialog2.setIcon(R.drawable.ic_delete_36dp);
 
                 alertDialog2.setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
@@ -101,16 +101,17 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                 json.addProperty("typeObject", "user");
                                 String url = "http://10.0.2.2:8080/api/evenement/removeUser/"+eventid;
                                 Ion.with(ListPseudoAdminActivity.this)
-                                        .load(url)
+                                        .load("PUT",url)
                                         .setJsonObjectBody(json)
                                         .asJsonObject()
                                         .setCallback(new FutureCallback<JsonObject>() {
                                             @Override
                                             public void onCompleted(Exception e, JsonObject result) {
                                                 pseudoList.remove(pseudoList.get(i));
+                                                myAdapter.notifyDataSetChanged();
+
                                             }
                                         });
-                                listViewPseudo.setAdapter(myAdapter);
                             }
                         });
                 alertDialog2.setNegativeButton("NO",
@@ -137,6 +138,10 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(123);
+    }
 }
 

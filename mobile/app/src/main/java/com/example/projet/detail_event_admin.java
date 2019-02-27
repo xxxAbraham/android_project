@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class detail_event_admin extends AppCompatActivity {
+    private int CODE = 123;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     ArrayList<User> invites;
     TextView nom_event, pseudo, description, budget, balance;
@@ -116,7 +117,7 @@ public class detail_event_admin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentplus = new Intent(detail_event_admin.this,ListPseudoAdminActivity.class);
                 intentplus.putExtra("eventid",eventid);
-                startActivity(intentplus);
+                startActivityForResult(intentplus, CODE);
             }
         });
 
@@ -135,4 +136,14 @@ public class detail_event_admin extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODE) {
+            if (resultCode == RESULT_OK) {
+              myadpater.notifyDataSetChanged();
+            }
+        }
+    }
+
 }
