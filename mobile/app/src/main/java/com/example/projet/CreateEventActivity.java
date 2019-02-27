@@ -33,8 +33,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     String year;
     String month;
     String day;
-    DatePickerDialog datePickerDialog = new DatePickerDialog(
-            getApplicationContext(), CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
+    DatePickerDialog datePickerDialog;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -71,7 +70,8 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             navigation.setSelectedItemId(R.id.navigation_creer);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
+        datePickerDialog = new DatePickerDialog(
+                getApplicationContext(), CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
         final TextView name = (TextView) findViewById(R.id.txt_name);
 
         date = (TextView) findViewById(R.id.txt_date);
@@ -82,6 +82,13 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         final Button validate = (Button) findViewById(R.id.btnFinalCreate);
         final Intent creating = new Intent(this, ListEventAdminActivity.class);
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
 
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,9 +158,22 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         Log.i("ON DATA SET", "onDateSet: "+ i + " *** "+ i1 + " *** "+ i2);
+
+        if (i1 < 10){
+            month = "0"+i1;
+        } else {
+            month = ""+i1;
+        }
+
+        if(i2<10){
+            day = "0"+i2;
+        } else {
+            day = ""+i2;
+        }
+
         year = ""+i;
-        month = ""+i1;
-        day = ""+i2;
+
+
         Log.i("ON DATA SET", "onDateSet: "+ year + " *** "+ month + " *** "+ day);
         date.setText(year+"-"+month+"-"+day);
     }
