@@ -47,22 +47,26 @@
                 android:layout_centerHorizontal="true"
                 android:src="@android:drawable/ic_menu_my_calendar"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
             <TextView
                 android:id="@+id/adresse"
+                style="@style/SousSousTitre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_activity_les_evenements"
+                android:layout_below="@+id/img_event"
                 android:layout_centerHorizontal="true"
-                style="@style/SousSousTitre"
-                android:layout_below="@+id/img_event"/>
+                android:text="@string/title_activity_les_evenements"
+                android:textSize="24sp" />
+
             <TextView
                 android:id="@+id/date"
-                android:layout_below="@+id/adresse"
+                style="@style/SousSousTitre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pseudo"
+                android:layout_below="@+id/adresse"
                 android:layout_centerHorizontal="true"
-                style="@style/SousSousTitre"/>
+                android:text="@string/pseudo"
+                android:textSize="18sp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <ScrollView
@@ -80,19 +84,22 @@
                 android:id="@+id/titre_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description :" />
+                android:text="Description :"
+                android:textSize="24sp" />
             <TextView
                 android:id="@+id/description"
                 android:layout_below="@+id/titre_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="5"/>
+
             <TextView
                 android:id="@+id/titre_participant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
                 android:text="Participants :"
-                android:layout_below="@+id/description"/>
+                android:textSize="24sp" />
 
 
             <ListView
@@ -110,42 +117,48 @@
                 android:layout_height="70dp"
                 android:src="@drawable/ic_coins"
                 android:layout_below="@+id/recyclerView"/>
+
             <TextView
                 android:id="@+id/titre_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Budget par personne : "
                 android:layout_below="@+id/recyclerView"
-                android:layout_toRightOf="@+id/img_budget"
                 android:layout_alignBottom="@+id/img_budget"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                />
+                android:layout_toRightOf="@+id/img_budget"
+                android:gravity="center_vertical"
+                android:text="Budget par personne : "
+                android:textSize="24sp" />
+
             <TextView
                 android:id="@+id/budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="500 euros"
                 android:layout_below="@+id/recyclerView"
-                android:layout_toRightOf="@+id/titre_budget"
                 android:layout_alignBottom="@+id/img_budget"
-                android:gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                />
+                android:layout_toRightOf="@+id/titre_budget"
+                android:gravity="center_vertical"
+                android:text="500 euros"
+                android:textSize="24sp" />
             <LinearLayout
                 android:id="@+id/layout_thune"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_below="@+id/img_budget">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Je dois : "/>
+                    android:text="Je dois : "
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="500 euros"/>
+                    android:text="500 euros"
+                    android:textSize="24sp" />
             </LinearLayout>
             <Button
                 android:id="@+id/donner"
