@@ -28,8 +28,11 @@ import java.util.Date;
 public class CreateEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     Intent bottomNavigation;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
-    ImageView iconDate = (ImageView) findViewById(R.id.icon_date);
     Date d = new Date();
+    TextView date;
+    String year;
+    String month;
+    String day;
     DatePickerDialog datePickerDialog = new DatePickerDialog(
             getApplicationContext(), CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -71,7 +74,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         final TextView name = (TextView) findViewById(R.id.txt_name);
 
-        final TextView date = (TextView) findViewById(R.id.txt_date);
+        date = (TextView) findViewById(R.id.txt_date);
         final TextView adresse = (TextView) findViewById(R.id.txt_adresse);
         final TextView codePost = (TextView) findViewById(R.id.txt_cp);
         final TextView ville = (TextView) findViewById(R.id.txt_ville);
@@ -79,13 +82,6 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         final Button validate = (Button) findViewById(R.id.btnFinalCreate);
         final Intent creating = new Intent(this, ListEventAdminActivity.class);
-
-        iconDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
-            }
-        });
 
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,5 +151,10 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         Log.i("ON DATA SET", "onDateSet: "+ i + " *** "+ i1 + " *** "+ i2);
+        year = ""+i;
+        month = ""+i1;
+        day = ""+i2;
+        Log.i("ON DATA SET", "onDateSet: "+ year + " *** "+ month + " *** "+ day);
+        date.setText(year+"-"+month+"-"+day);
     }
 }
