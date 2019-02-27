@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.gson.JsonObject;
@@ -92,7 +93,16 @@ public class InscriptionActivity extends AppCompatActivity {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
                                     AlertDialog alertDialog = new AlertDialog.Builder(InscriptionActivity.this).create();
-                                    if (result.getAsJsonPrimitive("ok").getAsBoolean()==true) {
+                                    if (result == null ) {
+                                        alertDialog.setTitle("Problème");
+                                        alertDialog.setMessage("Compte existant !");
+                                        alertDialog.setCanceledOnTouchOutside(true);                                    }
+                                    else if (result.getAsJsonPrimitive("status") != null && result.getAsJsonPrimitive("status").getAsInt()==500) {
+                                        alertDialog.setTitle("Problème");
+                                        alertDialog.setMessage("Compte existant !");
+                                        alertDialog.setCanceledOnTouchOutside(true);
+                                    }
+                                    else if (result.getAsJsonPrimitive("ok").getAsBoolean()==true) {
                                         System.out.println(json.toString());
                                         alertDialog.setTitle("Fin inscription");
                                         alertDialog.setMessage("Inscription Complète !");
