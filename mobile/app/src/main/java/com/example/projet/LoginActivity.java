@@ -23,6 +23,8 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -92,21 +94,25 @@ public class LoginActivity extends AppCompatActivity {
                             public void onCompleted(Exception e, JsonObject result) {
                                 if (result == null) {
                                     Toast.makeText(LoginActivity.this, "Error try again", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    System.out.println(result.get("email").getAsString());
-                                    System.out.println(mEmailView.getText().toString());
-                                    if(result.getAsJsonPrimitive("password").getAsString().equals(mPasswordView.getText().toString()) && result.getAsJsonPrimitive("email").getAsString().equals(mEmailView.getText().toString())){
-                                        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-                                        editor.putString("pseudo", result.getAsJsonPrimitive("username").getAsString());
-                                        editor.putString("mail",mEmailView.getText().toString());
-                                        editor.putString("id", result.get("id").getAsString());
-                                        editor.putString("password",result.getAsJsonPrimitive("password").getAsString());
-                                        editor.apply();
-                                        startActivity(connect);
-                                        finish();
-                                    }
-                                    else {
-                                        Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                                }
+                               else {
+                                    try {
+                                        System.out.println(result.get("email").getAsString());
+                                        System.out.println(mEmailView.getText().toString());
+                                        if (result.getAsJsonPrimitive("password").getAsString().equals(mPasswordView.getText().toString()) && result.getAsJsonPrimitive("email").getAsString().equals(mEmailView.getText().toString())) {
+                                            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                            editor.putString("pseudo", result.getAsJsonPrimitive("username").getAsString());
+                                            editor.putString("mail", mEmailView.getText().toString());
+                                            editor.putString("id", result.get("id").getAsString());
+                                            editor.putString("password", result.getAsJsonPrimitive("password").getAsString());
+                                            editor.apply();
+                                            startActivity(connect);
+                                            finish();
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Error wrong password/mail", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }catch (UnsupportedOperationException je){
+                                        Toast.makeText(LoginActivity.this, "Erreur compte existe pas", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }

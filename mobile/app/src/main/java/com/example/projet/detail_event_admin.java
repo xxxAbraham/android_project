@@ -67,9 +67,13 @@ public class detail_event_admin extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
                         String nom = result.get("title").getAsString();
 
+                        try {
                             String desc = result.get("description").getAsString();
                             description.setText(desc);
-
+                        }
+                        catch (UnsupportedOperationException je){
+                            description.setText("Pas de desciption");
+                        }
                         nom_event.setText(nom);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
