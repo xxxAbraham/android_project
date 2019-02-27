@@ -23,12 +23,13 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class CreateEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     Intent bottomNavigation;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
-    Date d = new Date();
+    Calendar d = Calendar.getInstance();
     TextView date;
     String year;
     String month;
@@ -71,10 +72,11 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         datePickerDialog = new DatePickerDialog(
-                CreateEventActivity.this, CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
+                CreateEventActivity.this, CreateEventActivity.this, d.get(Calendar.YEAR), d.get(Calendar.MONTH), d.get(Calendar.DAY_OF_MONTH));
         final TextView name = (TextView) findViewById(R.id.txt_name);
 
         date = (TextView) findViewById(R.id.txt_date);
+        date.setEnabled(false);
         final TextView adresse = (TextView) findViewById(R.id.txt_adresse);
         final TextView codePost = (TextView) findViewById(R.id.txt_cp);
         final TextView ville = (TextView) findViewById(R.id.txt_ville);
