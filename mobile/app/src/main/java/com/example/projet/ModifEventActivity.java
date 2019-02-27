@@ -45,12 +45,12 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
         desc = findViewById(R.id.txt_descriptionModif);
         valider = findViewById(R.id.btnFinalModif);
         final SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        datePickerDialog = new DatePickerDialog(
-                ModifEventActivity.this, ModifEventActivity.this, d.get(Calendar.YEAR), d.get(Calendar.MONTH), d.get(Calendar.DAY_OF_MONTH));
         final Intent intent = getIntent();
         if(intent.hasExtra("eventid")){
             eventid = intent.getStringExtra("eventid");
         }
+        datePickerDialog = new DatePickerDialog(
+                ModifEventActivity.this, ModifEventActivity.this, d.get(Calendar.YEAR), d.get(Calendar.MONTH), d.get(Calendar.DAY_OF_MONTH));
 
         date.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -109,6 +109,7 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
+                    Log.e("date avant", date.getText().toString());
                     String urlmodif = "http://10.0.2.2:8080/api/evenement/update/" + eventid;
                     final JsonObject json = new JsonObject();
                     json.addProperty("userId", prefs.getString("id", ""));
@@ -124,6 +125,7 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
                                     if (result.get("ok").getAsBoolean()) {
+                                        Log.e("date apres", date.getText().toString());
                                         finish();
                                     } else {
                                         Toast.makeText(ModifEventActivity.this, "Champs incorecte",

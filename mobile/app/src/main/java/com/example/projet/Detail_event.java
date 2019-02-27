@@ -47,7 +47,7 @@ public class Detail_event extends AppCompatActivity {
         setContentView(R.layout.activity_detail_event);
 
         invites = new ArrayList<User>();
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         nom_event = findViewById(R.id.titreEvent);
         pseudo = findViewById(R.id.pseudo_createur);
         description = findViewById(R.id.description);
@@ -58,6 +58,7 @@ public class Detail_event extends AppCompatActivity {
         retour = findViewById(R.id.retour);
         date = findViewById(R.id.date);
         adresse = findViewById(R.id.adresse);
+        participe = findViewById(R.id.fab);
 
 
 
@@ -94,7 +95,7 @@ public class Detail_event extends AppCompatActivity {
                         }
 
                         String theDate = result.get("date").getAsString();
-                        String theAdresse = result.get("adresse").getAsString();
+                        String theAdresse = result.get("place").getAsString();
                         if (theDate != null){
                             date.setText(theDate);
                         }
@@ -149,7 +150,7 @@ public class Detail_event extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, final int which) {
 
                                 final JsonObject json = new JsonObject();
-                                json.addProperty("idObject", pseudoList.get(which).getId());
+                                json.addProperty("idObject", prefs.getString("id",""));
                                 json.addProperty("typeObject", "user");
                                 String url = "http://10.0.2.2:8080/api/evenement/removeUser/"+eventid;
                                 Ion.with(Detail_event.this)
@@ -159,8 +160,8 @@ public class Detail_event extends AppCompatActivity {
                                         .setCallback(new FutureCallback<JsonObject>() {
                                             @Override
                                             public void onCompleted(Exception e, JsonObject result) {
-                                                pseudoList.remove(pseudoList.get(which));
                                                 myadpater.notifyDataSetChanged();
+                                                finish();
 
                                             }
                                         });
