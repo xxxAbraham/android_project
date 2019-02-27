@@ -69,11 +69,10 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         String nom = result.get("title").getAsString();
-                        Object tmp = result.get("decription");
-                        if(tmp != null){
+
                             String descript = result.get("description").getAsString();
                             desc.setText(descript);
-                        }
+
                         title.setText(nom);
                         date.setText(result.get("date").getAsString());
                         place.setText(result.get("place").getAsString());

@@ -1,5 +1,6 @@
 package com.example.projet;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -63,6 +64,7 @@ public class LesEvenements extends AppCompatActivity {
     ListView mlistView;
     private ArrayList<Evenement> eventList;
     private EventAdapter monAdapter;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +73,37 @@ public class LesEvenements extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_les_events);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final String pseudo = prefs.getString("pseudo", "");
         eventList  = new ArrayList<Evenement>();
         mlistView = (ListView) findViewById(R.id.dynamic);
         monAdapter = new EventAdapter( this , R.layout.item_les_evenements);
         mlistView.setAdapter(monAdapter);
         final String id = prefs.getString("id", "");
-        String url = "http://10.0.2.2:8080/api/evenement/getAll/user/"+id;
+
+
+        mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Evenement tmp = (Evenement) mlistView.getItemAtPosition(position);
+                Intent itemIntent = new Intent(LesEvenements.this, Detail_event.class);
+
+                itemIntent.putExtra("eventid", tmp.getId());
+                startActivity(itemIntent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final ArrayList<Evenement> resultEvent = new ArrayList<>();
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Currently downloading...");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        String url = "http://10.0.2.2:8080/api/evenement/getAll/user/"+prefs.getString("id","");
         Ion.with(LesEvenements.this)
                 .load(url)
                 .asJsonArray()
@@ -92,24 +117,20 @@ public class LesEvenements extends AppCompatActivity {
                             while (it.hasNext()) {
                                 JsonObject event = (JsonObject) it.next();
                                 System.out.println(event);
-                                monAdapter.add(new Evenement(event.get("id").getAsString(),
+                                resultEvent.add(new Evenement(event.get("id").getAsString(),
                                         event.get("title").getAsString(),
                                         event.get("date").getAsString(), event.get("place").getAsString(),
                                         "blablabla", "Quelqu'un" ));
                             }
                         }
+                        LesEvenements.this.populate(resultEvent);
                     }
                 });
+    }
 
-        mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Evenement tmp = (Evenement) mlistView.getItemAtPosition(position);
-                Intent itemIntent = new Intent(LesEvenements.this, Detail_event.class);
-
-                itemIntent.putExtra("eventid", tmp.getId());
-                startActivity(itemIntent);
-            }
-        });
+    public void populate(ArrayList<Evenement> listEvent){
+        this.monAdapter.clear();
+        this.monAdapter.addAll(listEvent);
+        this.monAdapter.notifyDataSetChanged();
     }
 }

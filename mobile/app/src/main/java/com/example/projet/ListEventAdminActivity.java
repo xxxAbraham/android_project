@@ -1,11 +1,13 @@
 package com.example.projet;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,8 +32,9 @@ public class ListEventAdminActivity extends AppCompatActivity {
 
     GridView gridViewList;
     private ArrayList<Evenement> eventList;
+    SharedPreferences prefs;
 
-
+    EventListAdminAdapter myAdapter;
     Intent bottomNavigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,6 +46,9 @@ public class ListEventAdminActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.navigation_creer:
+                    bottomNavigation = new Intent(getApplicationContext(), CreateEventActivity.class);
+                    startActivity(bottomNavigation);
+                    finish();
                     return true;
                 case R.id.navigation_les_events:
                     bottomNavigation = new Intent(getApplicationContext(), LesEvenements.class);
@@ -50,9 +56,6 @@ public class ListEventAdminActivity extends AppCompatActivity {
                     finish();
                     return true;
                 case R.id.navigation_mes_events:
-                    bottomNavigation = new Intent(getApplicationContext(), ListEventAdminActivity.class);
-                    startActivity(bottomNavigation);
-                    finish();
                     return true;
             }
             return false;
@@ -64,34 +67,17 @@ public class ListEventAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listeventadmin);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_mes_events);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+
         final String id = prefs.getString("id", "");
         final String pseudo = prefs.getString("pseudo", "");
-
         eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
-        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+id;
-        Ion.with(ListEventAdminActivity.this)
-                .load(url)
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonArray result) {
-                        Iterator it = result.iterator();
-                        while (it.hasNext()){
-                            JsonObject event = (JsonObject) it.next();
-                            eventList.add(new Evenement(event.get("id").getAsString(),event.get("title").getAsString(),
-                                    event.get("date").getAsString(),event.get("place").getAsString(),
-                                    "blablabla",pseudo));
 
-                        }
-                    }
-                });
-
-        EventListAdminAdapter myAdapter=new EventListAdminAdapter(this,R.layout.grid_item,eventList);
+        myAdapter=new EventListAdminAdapter(this,R.layout.grid_item,eventList);
         gridViewList.setAdapter(myAdapter);
 
 
@@ -106,5 +92,51 @@ public class ListEventAdminActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final ArrayList<Evenement> resultEvent = new ArrayList<>();
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Currently downloading...");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+
+        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+prefs.getString("id","");
+        Ion.with(this)
+                .load(url)
+                .progressDialog(dialog)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+
+                        Iterator it = result.iterator();
+                        while (it.hasNext()){
+                            JsonObject event = (JsonObject) it.next();
+
+                            resultEvent.add(
+                                    new Evenement
+                                            (event.get("id").getAsString(),
+                                                    event.get("title").getAsString(),
+                                                    event.get("date").getAsString(),
+                                                    event.get("place").getAsString(),
+                                                    event.get("description").getAsString(),
+                                                    prefs.getString("pseudo","")
+                                            ));
+
+                        }
+                        dialog.hide();
+                        ListEventAdminActivity.this.populate(resultEvent);
+                    }
+                });
+    }
+
+    public void populate(ArrayList<Evenement> listEvent){
+        this.myAdapter.clear();
+        this.myAdapter.addAll(listEvent);
+        this.myAdapter.notifyDataSetChanged();
     }
 }
