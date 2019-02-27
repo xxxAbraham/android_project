@@ -1,5 +1,6 @@
 package com.example.projet;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +23,15 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-public class CreateEventActivity extends AppCompatActivity {
+import java.util.Date;
+
+public class CreateEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     Intent bottomNavigation;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    ImageView iconDate = (ImageView) findViewById(R.id.icon_date);
+    Date d = new Date();
+    DatePickerDialog datePickerDialog = new DatePickerDialog(
+            getApplicationContext(), CreateEventActivity.this, d.getYear(), d.getMonth(), d.getDay());
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -69,6 +79,13 @@ public class CreateEventActivity extends AppCompatActivity {
 
         final Button validate = (Button) findViewById(R.id.btnFinalCreate);
         final Intent creating = new Intent(this, ListEventAdminActivity.class);
+
+        iconDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
 
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,4 +152,8 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        Log.i("ON DATA SET", "onDateSet: "+ i + " *** "+ i1 + " *** "+ i2);
+    }
 }
