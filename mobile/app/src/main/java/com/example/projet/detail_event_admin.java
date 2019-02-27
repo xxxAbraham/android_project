@@ -1,15 +1,18 @@
 package com.example.projet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ public class detail_event_admin extends AppCompatActivity {
     FloatingActionButton plus;
     Button donner;
     ImageButton reglage, retour;
+    String idpseudo = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +89,8 @@ public class detail_event_admin extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-//                        Double total = result.get("total").getAsDouble();
-  //                      budget.setText(total.toString());
+                        Double total = result.get("total").getAsDouble();
+                        budget.setText(total.toString());
                     }});
 
         String url3 = "http://10.0.2.2:8080/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
@@ -132,7 +136,56 @@ public class detail_event_admin extends AppCompatActivity {
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //AlertDialog don = new AlertDialog(detail_event_admin.this);
+                android.app.AlertDialog.Builder dialogDonner = new AlertDialog.Builder(
+                        detail_event_admin.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogLayout = inflater.inflate(R.layout.dialog_adddepense, null);
+                dialogDonner.setView(dialogLayout);
+                final EditText motif = (EditText) findViewById(R.id.motif);
+                final EditText montant = (EditText) findViewById(R.id.montant);
+
+                dialogDonner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        String strMotif = motif.getText().toString();
+                        String strMontant = montant.getText().toString();
+                        Double dbMontant = Double.parseDouble(strMontant);
+
+                        final JsonObject json = new JsonObject();
+                        json.addProperty("amount", dbMontant);
+                        json.addProperty("wording", strMotif);
+
+                        json.addProperty("userId", idpseudo);
+                        json.addProperty("eventId", eventid);
+
+                        String url2 = "http://10.0.2.2:8080/api/depense/add";
+                        Ion.with(detail_event_admin.this)
+                                .load("PUT",url2)
+                                .setJsonObjectBody(json)
+                                .asJsonObject()
+                                .setCallback(new FutureCallback<JsonObject>() {
+                                    @Override
+                                    public void onCompleted(Exception e, JsonObject result) {
+
+
+
+                                    }});
+                    }
+
+
+
+                });
+
+
+
+
+
+
+
+
+
+
             }
         });
 
