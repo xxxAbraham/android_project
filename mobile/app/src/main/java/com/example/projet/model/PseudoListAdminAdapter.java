@@ -15,7 +15,7 @@ public class PseudoListAdminAdapter extends ArrayAdapter {
 
     private Context mContext;
 
-    ArrayList<String> pseudoList = new ArrayList<>();
+    ArrayList<User> pseudoList = new ArrayList<User>();
 
     public PseudoListAdminAdapter(Context context, int textViewResourceId, ArrayList objects) {
         super(context, textViewResourceId, objects);
@@ -36,7 +36,7 @@ public class PseudoListAdminAdapter extends ArrayAdapter {
         v = LayoutInflater.from(mContext).inflate(R.layout.item_listpseudoadmin,parent,false);
 
         TextView pseudo = v.findViewById(R.id.tvListPseudo);
-        pseudo.setText(pseudoList.get(position));
+        pseudo.setText(pseudoList.get(position).getNom());
         return v;
 
     }
