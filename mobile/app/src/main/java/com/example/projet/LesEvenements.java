@@ -95,7 +95,7 @@ public class LesEvenements extends AppCompatActivity {
                                 monAdapter.add(new Evenement(event.get("id").getAsString(),
                                         event.get("title").getAsString(),
                                         event.get("date").getAsString(), event.get("place").getAsString(),
-                                        "blablabla", pseudo ));
+                                        "blablabla", "Quelqu'un" ));
                             }
                         }
                     }

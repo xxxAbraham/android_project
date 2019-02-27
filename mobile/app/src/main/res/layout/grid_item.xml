@@ -19,12 +19,13 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"/>
+
     <ImageView
         android:id="@+id/imgGrid"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
     <TextView
         android:id="@+id/tvadresseGrid"

@@ -38,14 +38,15 @@
                 android:text="@string/pseudo"
                 android:layout_centerHorizontal="true"
                 style="@style/SousTitre"/>
+
             <ImageView
                 android:id="@+id/img_event"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/pseudo_createur"
-                android:src="@drawable/ic_launcher_background"
-                />
+                android:layout_centerHorizontal="true"
+                android:src="@android:drawable/ic_menu_my_calendar"
+                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
             <TextView
                 android:id="@+id/adresse"
                 android:layout_width="wrap_content"
@@ -107,7 +108,7 @@
                 android:id="@+id/img_budget"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/ic_coins"
                 android:layout_below="@+id/recyclerView"/>
             <TextView
                 android:id="@+id/titre_budget"
