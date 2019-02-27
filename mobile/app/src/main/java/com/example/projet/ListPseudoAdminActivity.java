@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
     EditText pseudoajouter;
     String idpseudo = "";
     String nompseudo = "";
-
+    ImageButton retour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,8 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
         if(intent.hasExtra("eventid")){
             eventid = intent.getStringExtra("eventid");
         }
+
+        retour = findViewById(R.id.retour);
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final String pseudo = prefs.getString("pseudo", "");
         pseudo_creator = (TextView) findViewById(R.id.pseudo_createur);
@@ -189,6 +192,13 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                     });
                     builder.show();
 
+            }
+        });
+
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

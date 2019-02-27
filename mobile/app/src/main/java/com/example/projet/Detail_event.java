@@ -39,15 +39,17 @@ public class Detail_event extends AppCompatActivity {
 
         invites = new ArrayList<User>();
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        nom_event = findViewById(R.id.nom_event);
+        nom_event = findViewById(R.id.titreEvent);
         pseudo = findViewById(R.id.pseudo_createur);
         description = findViewById(R.id.description);
         budget = findViewById(R.id.budget);
         balance = findViewById(R.id.balance);
         list_invites = findViewById(R.id.recyclerView);
-       /*
-        retour = findViewById(R.id.retour);
         donner = findViewById(R.id.donner);
+        retour = findViewById(R.id.retour);
+
+
+       /*
         plus = findViewById(R.id.fab);
         reglage = findViewById(R.id.reglage);
 */
@@ -82,23 +84,15 @@ public class Detail_event extends AppCompatActivity {
         myadpater = new ArrayAdapterDetail(this,invites);
         list_invites.setAdapter(myadpater);
 
-        reglage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentreglage = new Intent(Detail_event.this, ModifEventActivity.class);
-                intentreglage.putExtra("eventid",eventid);
-                startActivity(intentreglage);
-            }
-        });
 
-        plus.setOnClickListener(new View.OnClickListener() {
+       /* plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentplus = new Intent(Detail_event.this,ListPseudoAdminActivity.class);
                 intentplus.putExtra("eventid",eventid);
                 startActivity(intentplus);
             }
-        });
+        });*/
 
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
