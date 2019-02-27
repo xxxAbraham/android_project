@@ -2,13 +2,15 @@ package com.example.projet.model;
 
 public class Evenement {
 
+    String id;
     String nom;
     String date;
     String adresse;
     String description;
 
-    public Evenement(String nom, String date, String adresse, String description) {
+    public Evenement(String id, String nom, String date, String adresse, String description) {
         this.nom = nom;
+        this.id = id;
         this.date = date;
         this.adresse = adresse;
         this.description = description;
@@ -38,6 +40,13 @@ public class Evenement {
         this.adresse = adresse;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -79,7 +81,7 @@ public class ListEventAdminActivity extends AppCompatActivity {
                         Iterator it = result.iterator();
                         while (it.hasNext()){
                             JsonObject event = (JsonObject) it.next();
-                            eventList.add(new Evenement(event.get("title").getAsString(),
+                            eventList.add(new Evenement(event.get("id").getAsString(),event.get("title").getAsString(),
                                     event.get("date").getAsString(),event.get("place").getAsString(),
                                     "blablabla"));
                         }
@@ -89,6 +91,17 @@ public class ListEventAdminActivity extends AppCompatActivity {
         EventListAdminAdapter myAdapter=new EventListAdminAdapter(this,R.layout.grid_item,eventList);
         gridViewList.setAdapter(myAdapter);
 
+
+        gridViewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Evenement tmp = (Evenement) gridViewList.getItemAtPosition(position);
+                Intent itemIntent = new Intent(ListEventAdminActivity.this, detail_event_admin.class);
+
+                itemIntent.putExtra("eventId", tmp.getId());
+                startActivity(itemIntent);
+            }
+        });
 
 
 

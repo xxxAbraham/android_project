@@ -39,6 +39,8 @@
         <activity android:name=".CreateEventActivity" />
         <activity android:name=".ModifEventActivity" />
         <activity android:name=".ListEventAdminActivity" />
+        <activity android:name=".detail_event_admin" />
+
     </application>
 
 </manifest>

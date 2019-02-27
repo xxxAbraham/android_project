@@ -2,6 +2,7 @@ package com.example.projet;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -110,6 +111,13 @@ public class detail_event_admin extends AppCompatActivity {
                 Intent intentplus = new Intent(detail_event_admin.this,ListPseudoAdminActivity.class);
                 intent.putExtra("eventid",eventid);
                 startActivity(intentplus);
+            }
+        });
+
+        donner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

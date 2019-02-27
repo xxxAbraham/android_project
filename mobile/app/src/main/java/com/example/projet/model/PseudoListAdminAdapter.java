@@ -7,16 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.projet.R;
+
 import java.util.ArrayList;
 
 public class PseudoListAdminAdapter extends ArrayAdapter {
 
+    private Context mContext;
 
     ArrayList<User> pseudoList = new ArrayList<User>();
 
     public PseudoListAdminAdapter(Context context, int textViewResourceId, ArrayList objects) {
         super(context, textViewResourceId, objects);
         pseudoList = objects;
+        mContext = context;
+
     }
 
     @Override
@@ -28,8 +33,8 @@ public class PseudoListAdminAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.item_listpseudoadmin, null);
+        v = LayoutInflater.from(mContext).inflate(R.layout.item_listpseudoadmin,parent,false);
+
         TextView pseudo = v.findViewById(R.id.tvListPseudo);
         pseudo.setText(pseudoList.get(position).getNom());
         return v;
