@@ -63,26 +63,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/list_dep"
         android:layout_margin="10dp">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/ic_coins" />
+
         <TextView
-            android:layout_marginLeft="10dp"
+            android:id="@+id/economy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_activity_les_evenements"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_activity_les_evenements" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contrib_total"
         android:layout_margin="10dp">
+
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/ic_equality" />
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
