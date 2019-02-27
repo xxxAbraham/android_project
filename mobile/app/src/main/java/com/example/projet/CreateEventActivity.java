@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -76,7 +78,6 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         final TextView name = (TextView) findViewById(R.id.txt_name);
 
         date = (TextView) findViewById(R.id.txt_date);
-        date.setEnabled(false);
         final TextView adresse = (TextView) findViewById(R.id.txt_adresse);
         final TextView codePost = (TextView) findViewById(R.id.txt_cp);
         final TextView ville = (TextView) findViewById(R.id.txt_ville);
@@ -85,74 +86,76 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         final Button validate = (Button) findViewById(R.id.btnFinalCreate);
         final Intent creating = new Intent(this, ListEventAdminActivity.class);
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
-            }
-        });
-
-        validate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View focusView = null;
-                boolean cancel = false;
-                if (TextUtils.isEmpty(name.getText())){
-                    name.setError( "Entrez un nom!" );
-                    focusView = name;
-                    cancel = true;
-                }
-                if (TextUtils.isEmpty(date.getText())){
-                    date.setError( "Entrez une date (yyyy-mm-dd)!" );
-                    focusView = date;
-                    cancel = true;
-                }
-                if (TextUtils.isEmpty(adresse.getText())){
-                    adresse.setError( "Entrez une adresse!" );
-                    focusView = adresse;
-                    cancel = true;
-                }
-                if (TextUtils.isEmpty(codePost.getText())){
-                    codePost.setError( "Entrez un code postal!" );
-                    focusView = codePost;
-                    cancel = true;
-                }
-                if (TextUtils.isEmpty(ville.getText())){
-                    ville.setError( "Entrez un nom de ville!" );
-                    focusView = ville;
-                    cancel = true;
-                }
-                if (cancel) {
-                    focusView.requestFocus();
-                }else {
-                    String url = "http://10.0.2.2:8080/api/evenement/add";
-                    final JsonObject json = new JsonObject();
-                    json.addProperty("userId", pseudo);
-                    json.addProperty("title", name.getText().toString());
-                    json.addProperty("date", date.getText().toString());
-                    json.addProperty("place", adresse.getText().toString() + " "
-                            + codePost.getText().toString() + " " + ville.getText().toString());
-                    json.addProperty("description", desc.getText().toString());
-                    Ion.with(CreateEventActivity.this)
-                            .load(url)
-                            .setJsonObjectBody(json)
-                            .asJsonObject()
-                            .setCallback(new FutureCallback<JsonObject>() {
-                                @Override
-                                public void onCompleted(Exception e, JsonObject result) {
-                                    if (result.get("ok").getAsBoolean()) {
-                                        startActivity(creating);
-                                        finish();
-                                    } else {
-                                        Toast.makeText(CreateEventActivity.this, "Champs incorecte",
-                                                Toast.LENGTH_LONG).show();
+        date.setOnTouchListener(new View.OnTouchListener() {
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        datePickerDialog.show();
+                                        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Fermer");
+                                        return true;
                                     }
-                                }
-                            });
+                                });
 
-                }
-            }
-        });
+                validate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        View focusView = null;
+                        boolean cancel = false;
+                        if (TextUtils.isEmpty(name.getText())) {
+                            name.setError("Entrez un nom!");
+                            focusView = name;
+                            cancel = true;
+                        }
+                        if (TextUtils.isEmpty(date.getText())) {
+                            date.setError("Entrez une date (yyyy-mm-dd)!");
+                            focusView = date;
+                            cancel = true;
+                        }
+                        if (TextUtils.isEmpty(adresse.getText())) {
+                            adresse.setError("Entrez une adresse!");
+                            focusView = adresse;
+                            cancel = true;
+                        }
+                        if (TextUtils.isEmpty(codePost.getText())) {
+                            codePost.setError("Entrez un code postal!");
+                            focusView = codePost;
+                            cancel = true;
+                        }
+                        if (TextUtils.isEmpty(ville.getText())) {
+                            ville.setError("Entrez un nom de ville!");
+                            focusView = ville;
+                            cancel = true;
+                        }
+                        if (cancel) {
+                            focusView.requestFocus();
+                        } else {
+                            String url = "http://10.0.2.2:8080/api/evenement/add";
+                            final JsonObject json = new JsonObject();
+                            json.addProperty("userId", pseudo);
+                            json.addProperty("title", name.getText().toString());
+                            json.addProperty("date", date.getText().toString());
+                            json.addProperty("place", adresse.getText().toString() + " "
+                                    + codePost.getText().toString() + " " + ville.getText().toString());
+                            json.addProperty("description", desc.getText().toString());
+                            Ion.with(CreateEventActivity.this)
+                                    .load(url)
+                                    .setJsonObjectBody(json)
+                                    .asJsonObject()
+                                    .setCallback(new FutureCallback<JsonObject>() {
+                                        @Override
+                                        public void onCompleted(Exception e, JsonObject result) {
+                                            if (result.get("ok").getAsBoolean()) {
+                                                startActivity(creating);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(CreateEventActivity.this, "Champs incorecte",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+
+                        }
+                    }
+                });
 
     }
 
