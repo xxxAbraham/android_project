@@ -32,7 +32,7 @@ public class EventListAdminAdapter extends ArrayAdapter {
 
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         v = inflater.inflate(R.layout.grid_item, null);
+        v = inflater.inflate(R.layout.grid_item, null);
         TextView aName = v.findViewById(R.id.tvnameGrid);
         aName.setText(eventList.get(position).getNom());
         TextView aDate = v.findViewById(R.id.tvdateGrid);
