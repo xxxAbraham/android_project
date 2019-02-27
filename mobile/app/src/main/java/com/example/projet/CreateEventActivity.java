@@ -120,6 +120,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                 public void onCompleted(Exception e, JsonObject result) {
                                     if (result.get("ok").getAsBoolean()) {
                                         startActivity(creating);
+                                        finish();
                                     } else {
                                         Toast.makeText(CreateEventActivity.this, "Champs incorecte",
                                                 Toast.LENGTH_LONG).show();

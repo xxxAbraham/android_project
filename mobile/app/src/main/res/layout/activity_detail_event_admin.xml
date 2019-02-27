@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageButton
+                android:id="@+id/retour"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="10dp"
