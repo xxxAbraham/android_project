@@ -34,6 +34,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
     ListView listViewPseudo;
     private ArrayList pseudoList;
     String eventid = "";
+    TextView pseudo_creator;
 
 
 
@@ -47,6 +48,9 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
         }
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final String pseudo = prefs.getString("id", "");
+        pseudo_creator = (TextView) findViewById(R.id.pseudo_createur);
+        pseudo_creator.setText(pseudo);
+
         pseudoList  = new ArrayList<>();
         listViewPseudo = (ListView) findViewById(R.id.listPseudo);
         String url = "http://localhost:8080/api/evenement/get/"+eventid;
