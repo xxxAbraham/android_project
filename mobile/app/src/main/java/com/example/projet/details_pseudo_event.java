@@ -3,6 +3,7 @@ package com.example.projet;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class details_pseudo_event extends AppCompatActivity {
         String pseudoid = intent.getStringExtra("pseudoid");
         String url1 = "http://10.0.2.2:8080/api/membre/get/"+pseudoid;
         final TextView pseudo = (TextView) findViewById(R.id.titreEvent);
+        final TextView balance = (TextView) findViewById(R.id.balance);
+        final TextView economy = (TextView) findViewById(R.id.economy);
         final ListView lview = (ListView) findViewById(R.id.list_dep);
         depenses = new ArrayList<String>();
         adapter=new ArrayAdapter<String>(this,
@@ -62,6 +65,29 @@ public class details_pseudo_event extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     }
                 });
+        String url_balance = "http://10.0.2.2:8080/api/owing/get/"+pseudoid+"/"+eventid;
+        Ion.with(details_pseudo_event.this)
+                .load(url_balance)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.e("Result", result.toString());
+                        Double bal = result.get("owing").getAsDouble();
+                        balance.setText(bal.toString());
+                    }
+                });
+        String url_economy = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        Ion.with(details_pseudo_event.this)
+                .load(url_economy)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        economy.setText(result.get("total").toString());
+                    }
+                });
     }
+
 }
 

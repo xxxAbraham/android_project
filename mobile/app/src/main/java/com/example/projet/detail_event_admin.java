@@ -66,11 +66,10 @@ public class detail_event_admin extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         String nom = result.get("title").getAsString();
-                        Object tmp =result.get("decription");
-                        if(tmp != null){
+
                             String desc = result.get("description").getAsString();
                             description.setText(desc);
-                        }
+
                         nom_event.setText(nom);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
@@ -133,7 +132,7 @@ public class detail_event_admin extends AppCompatActivity {
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //AlertDialog don = new AlertDialog(detail_event_admin.this);
             }
         });
 
