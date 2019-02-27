@@ -140,7 +140,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                             json.addProperty("date", date.getText().toString());
                             json.addProperty("place", adresse.getText().toString() + " "
                                     + codePost.getText().toString() + " " + ville.getText().toString());
-                            json.addProperty("description", ""+desc.getText().toString());
+                            json.addProperty("description", desc.getText().toString());
                             Ion.with(CreateEventActivity.this)
                                     .load(url)
                                     .setJsonObjectBody(json)
