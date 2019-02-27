@@ -1,17 +1,24 @@
 package com.example.projet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.projet.model.Evenement;
 import com.example.projet.model.EventListAdminAdapter;
@@ -34,10 +41,11 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     ListView listViewPseudo;
-    private ArrayList pseudoList;
+    ArrayList<User> pseudoList = new ArrayList<User>();
     String eventid = "";
     TextView pseudo_creator;
-
+    FloatingActionButton btnajoutpseudo;
+    PseudoListAdminAdapter myAdapter;
 
 
     @Override
@@ -55,7 +63,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
         pseudoList  = new ArrayList<>();
         listViewPseudo = (ListView) findViewById(R.id.listPseudo);
         String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
-       Ion.with(ListPseudoAdminActivity.this)
+        Ion.with(ListPseudoAdminActivity.this)
                 .load(url)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -66,15 +74,69 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                      while (iv.hasNext()){
                                          JsonObject o = iv.next().getAsJsonObject();
                                          String m = o.get("username").getAsString();
-                                         pseudoList.add(m);
+                                         String id = o.get("id").getAsString();
+                                         pseudoList.add(new User(m, id));
                                      }
                                  }
                              });
-
-       PseudoListAdminAdapter myAdapter = new PseudoListAdminAdapter(this, R.layout.item_listpseudoadmin
-                                , pseudoList);
+        myAdapter = new PseudoListAdminAdapter(this, R.layout.item_listpseudoadmin
+                , pseudoList);
         listViewPseudo.setAdapter(myAdapter);
 
+        listViewPseudo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
+                        ListPseudoAdminActivity.this);
+                alertDialog2.setTitle("Confirm Delete...");
+                alertDialog2.setMessage("Are you sure you want delete this file?");
+                alertDialog2.setIcon(R.drawable.ic_delete_36dp.xml);
+
+                alertDialog2.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Write your code here to execute after dialog
+                                final JsonObject json = new JsonObject();
+                                json.addProperty("idObject", pseudoList.get(i).getId());
+                                json.addProperty("typeObject", "user");
+                                String url = "http://10.0.2.2:8080/api/evenement/removeUser/"+eventid;
+                                Ion.with(ListPseudoAdminActivity.this)
+                                        .load(url)
+                                        .setJsonObjectBody(json)
+                                        .asJsonObject()
+                                        .setCallback(new FutureCallback<JsonObject>() {
+                                            @Override
+                                            public void onCompleted(Exception e, JsonObject result) {
+                                                pseudoList.remove(pseudoList.get(i));
+                                            }
+                                        });
+                                listViewPseudo.setAdapter(myAdapter);
+                            }
+                        });
+                alertDialog2.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                alertDialog2.show();
+            }
+        });
+
+
+
+
+        btnajoutpseudo = (FloatingActionButton) findViewById(R.id.fab);
+        btnajoutpseudo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
     }
+
+
 }
 
