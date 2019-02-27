@@ -32,7 +32,7 @@ public class detail_event_admin extends AppCompatActivity {
     String eventid = "";
     FloatingActionButton plus;
     Button donner;
-    ImageButton reglage;
+    ImageButton reglage, retour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class detail_event_admin extends AppCompatActivity {
         budget = findViewById(R.id.budget);
         balance = findViewById(R.id.balance);
         list_invites = findViewById(R.id.recyclerView);
-
+        retour = findViewById(R.id.retour);
         donner = findViewById(R.id.donner);
         plus = findViewById(R.id.fab);
         reglage = findViewById(R.id.reglage);
@@ -123,6 +123,13 @@ public class detail_event_admin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
