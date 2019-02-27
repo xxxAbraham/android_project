@@ -35,6 +35,10 @@ public class EventListAdminAdapter extends ArrayAdapter {
          v = inflater.inflate(R.layout.grid_item, null);
         TextView aName = v.findViewById(R.id.tvnameGrid);
         aName.setText(eventList.get(position).getNom());
+        TextView aDate = v.findViewById(R.id.tvdateGrid);
+        aDate.setText(eventList.get(position).getDate());
+        TextView aAdresse = v.findViewById(R.id.tvadresseGrid);
+        aAdresse.setText(eventList.get(position).getAdresse());
         return v;
 
     }

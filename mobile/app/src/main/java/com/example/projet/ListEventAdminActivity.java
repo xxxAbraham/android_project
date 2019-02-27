@@ -70,8 +70,6 @@ public class ListEventAdminActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final String id = prefs.getString("id", "");
         final String pseudo = prefs.getString("pseudo", "");
-        final String date = prefs.getString("date", "");
-        final String place = prefs.getString("place", "");
 
         eventList  = new ArrayList<>();
         gridViewList = (GridView) findViewById(R.id.mygridview);
@@ -86,7 +84,7 @@ public class ListEventAdminActivity extends AppCompatActivity {
                         while (it.hasNext()){
                             JsonObject event = (JsonObject) it.next();
                             eventList.add(new Evenement(event.get("id").getAsString(),event.get("title").getAsString(),
-                                    date,place,
+                                    event.get("date").getAsString(),event.get("place").getAsString(),
                                     "blablabla",pseudo));
 
                         }
