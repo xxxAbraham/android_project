@@ -151,12 +151,17 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                             pseudoajouter = (EditText) findViewById(R.id.ajoutpseudoET);
                             String recup = pseudoajouter.getText().toString();
 
-                            for (User u:pseudoList) {
-                                if(u.getNom().equals(recup)){
-                                    idpseudo = u.getId();
-                                    nompseudo = u.getNom();
-                                }
-                            }
+                            String url2 = "http://10.0.2.2:8080/api/membre/get/pseudo/"+recup;
+                            Ion.with(ListPseudoAdminActivity.this)
+                                    .load("GET",url2)
+                                    .asJsonObject()
+                                    .setCallback(new FutureCallback<JsonObject>() {
+                                        @Override
+                                        public void onCompleted(Exception e, JsonObject result) {
+                                            idpseudo = result.get("id").getAsString();
+                                            nompseudo = result.get("username").getAsString();
+                                        }
+                                    });
                             final JsonObject json = new JsonObject();
                             json.addProperty("idObject", idpseudo);
                             json.addProperty("typeObject", "user");
