@@ -31,7 +31,7 @@ public class Detail_event extends AppCompatActivity {
     TextView nom_event, pseudo, description, budget, balance;
     ListView list_invites;
     ArrayAdapterDetail myadpater;
-    String eventid = "";
+    String eventid = "",idpseudo ="";
     FloatingActionButton plus;
     Button donner;
     ImageButton reglage, retour;
@@ -61,12 +61,8 @@ public class Detail_event extends AppCompatActivity {
         participe = findViewById(R.id.fab);
 
 
+        idpseudo = prefs.getString("id", "");
 
-       /*
-        plus = findViewById(R.id.fab);
-        reglage = findViewById(R.id.reglage);
-*/
-        pseudo.setText(prefs.getString("pseudo", ""));
 
         final Intent intent = getIntent();
         if(intent.hasExtra("eventid")){
@@ -81,11 +77,10 @@ public class Detail_event extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         String nom = result.get("title").getAsString();
-                        Object tmp =result.get("decription");
-                        if(tmp != null){
+
                             String desc = result.get("description").getAsString();
                             description.setText(desc);
-                        }
+
                         nom_event.setText(nom);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
@@ -96,6 +91,9 @@ public class Detail_event extends AppCompatActivity {
 
                         String theDate = result.get("date").getAsString();
                         String theAdresse = result.get("place").getAsString();
+                        JsonObject creator = result.get("user").getAsJsonObject();
+                        String namecreator = creator.get("username").getAsString();
+
                         if (theDate != null){
                             date.setText(theDate);
                         }
@@ -103,9 +101,9 @@ public class Detail_event extends AppCompatActivity {
                         if (theAdresse != null){
                             adresse.setText(theAdresse);
                         }
-
-
-
+                        if(namecreator !=null){
+                            pseudo.setText(namecreator);
+                        }
                     }});
 
         myadpater = new ArrayAdapterDetail(this,invites);
@@ -174,14 +172,34 @@ public class Detail_event extends AppCompatActivity {
                             }
                         });
                 alertDialog2.show();
+                onRestart();
             }
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        Ion.with(Detail_event.this)
+                .load(url2)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Double total = result.get("total").getAsDouble();
+                        budget.setText(total.toString());
+                    }});
 
-
-
-
-
-
+        String url3 = "http://10.0.2.2:8080/api/owing/get/"+idpseudo+"/"+eventid;
+        Ion.with(Detail_event.this)
+                .load(url3)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Double bal = result.get("owing").getAsDouble();
+                        balance.setText(bal.toString());
+                    }});
     }
 }

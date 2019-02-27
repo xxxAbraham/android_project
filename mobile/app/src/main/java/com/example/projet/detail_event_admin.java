@@ -39,12 +39,13 @@ public class detail_event_admin extends AppCompatActivity {
     Button donner;
     ImageButton reglage, retour;
     String idpseudo = "";
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_event_admin);
         invites = new ArrayList<User>();
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         nom_event = findViewById(R.id.nom_event);
         pseudo = findViewById(R.id.pseudo_createur);
         description = findViewById(R.id.description);
@@ -61,52 +62,9 @@ public class detail_event_admin extends AppCompatActivity {
         if(intent.hasExtra("eventid")){
             eventid = intent.getStringExtra("eventid");
         }
+        idpseudo = prefs.getString("id", "");
 
-        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
-        Ion.with(detail_event_admin.this)
-                .load(url)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        String nom = result.get("title").getAsString();
 
-                        try {
-                            String desc = result.get("description").getAsString();
-                            description.setText(desc);
-                        }
-                        catch (UnsupportedOperationException je){
-                            description.setText("Pas de desciption");
-                        }
-                        nom_event.setText(nom);
-                        JsonArray userList = result.get("userList").getAsJsonArray();
-                        Iterator it = userList.iterator();
-                        while (it.hasNext()){
-                            JsonObject jsonUser = (JsonObject) it.next();
-                            invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
-                        }
-                    }});
-      String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
-        Ion.with(detail_event_admin.this)
-                .load(url2)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        Double total = result.get("total").getAsDouble();
-                        budget.setText(total.toString());
-                    }});
-
-        String url3 = "http://10.0.2.2:8080/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
-        Ion.with(detail_event_admin.this)
-                .load(url3)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        Double bal = result.get("owing").getAsDouble();
-                       balance.setText(bal.toString());
-                    }});
         myadpater = new ArrayAdapterDetailAdmin(this,invites);
         list_invites.setAdapter(myadpater);
         list_invites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,8 +103,8 @@ public class detail_event_admin extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 final View dialogLayout = inflater.inflate(R.layout.dialog_adddepense, null);
                 dialogDonner.setView(dialogLayout);
-                final EditText motif = (EditText) findViewById(R.id.motif);
-                final EditText montant = (EditText) findViewById(R.id.montant);
+                final EditText motif = dialogLayout.findViewById(R.id.motif);
+                final EditText montant = dialogLayout.findViewById(R.id.montant);
 
                 dialogDonner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -171,25 +129,12 @@ public class detail_event_admin extends AppCompatActivity {
                                 .setCallback(new FutureCallback<JsonObject>() {
                                     @Override
                                     public void onCompleted(Exception e, JsonObject result) {
-
-
-
                                     }});
                     }
-
-
-
                 });
 
-
-
-
-
-
-
-
-
-
+                dialogDonner.show();
+                onRestart();
             }
         });
 
@@ -211,4 +156,53 @@ public class detail_event_admin extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        Ion.with(detail_event_admin.this)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        String nom = result.get("title").getAsString();
+
+                        try {
+                            String desc = result.get("description").getAsString();
+                            description.setText(desc);
+                        }
+                        catch (UnsupportedOperationException je){
+                            description.setText("Pas de desciption");
+                        }
+                        nom_event.setText(nom);
+                        JsonArray userList = result.get("userList").getAsJsonArray();
+                        Iterator it = userList.iterator();
+                        while (it.hasNext()){
+                            JsonObject jsonUser = (JsonObject) it.next();
+                            invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
+                        }
+                    }});
+        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        Ion.with(detail_event_admin.this)
+                .load(url2)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Double total = result.get("total").getAsDouble();
+                        budget.setText(total.toString());
+                    }});
+
+        String url3 = "http://10.0.2.2:8080/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
+        Ion.with(detail_event_admin.this)
+                .load(url3)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Double bal = result.get("owing").getAsDouble();
+                        balance.setText(bal.toString());
+                    }});
+    }
 }
