@@ -201,10 +201,14 @@ public class detail_event_admin extends AppCompatActivity {
                         nom_event.setText(nom);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
+
+                        JsonObject creator = (JsonObject) result.get("user");
+                        lesinvites.add(new User(creator.get("username").getAsString(),creator.get("id").getAsString()));
                         while (it.hasNext()){
                             JsonObject jsonUser = (JsonObject) it.next();
                             lesinvites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
                         }
+
                         detail_event_admin.this.populate(lesinvites);
                     }
                 });

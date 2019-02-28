@@ -86,6 +86,9 @@ public class Detail_event extends AppCompatActivity {
                         nom_event.setText(nom);
                         JsonArray userList = result.get("userList").getAsJsonArray();
                         Iterator it = userList.iterator();
+                        JsonObject creator = result.get("user").getAsJsonObject();
+                        String namecreator = creator.get("username").getAsString();
+                        invites.add(new User(namecreator,creator.get("id").getAsString()));
                         while (it.hasNext()){
                             JsonObject jsonUser = (JsonObject) it.next();
                             invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
@@ -93,8 +96,6 @@ public class Detail_event extends AppCompatActivity {
 
                         String theDate = result.get("date").getAsString();
                         String theAdresse = result.get("place").getAsString();
-                        JsonObject creator = result.get("user").getAsJsonObject();
-                        String namecreator = creator.get("username").getAsString();
 
                         if (theDate != null){
                             date.setText(theDate);
@@ -110,7 +111,16 @@ public class Detail_event extends AppCompatActivity {
 
         myadpater = new ArrayAdapterDetail(this,invites);
         list_invites.setAdapter(myadpater);
-
+        list_invites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User tmp = (User) list_invites.getItemAtPosition(position);
+                Intent detailPseudo = new Intent(Detail_event.this, details_pseudo_event.class);
+                detailPseudo.putExtra("eventid", eventid);
+                detailPseudo.putExtra("pseudoid", tmp.getId());
+                startActivity(detailPseudo);
+            }
+        });
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

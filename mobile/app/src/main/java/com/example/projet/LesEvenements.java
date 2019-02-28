@@ -116,11 +116,12 @@ public class LesEvenements extends AppCompatActivity {
                             Iterator it = result.iterator();
                             while (it.hasNext()) {
                                 JsonObject event = (JsonObject) it.next();
+                                JsonObject creator = (JsonObject) event.get("user");
                                 System.out.println(event);
                                 resultEvent.add(new Evenement(event.get("id").getAsString(),
                                         event.get("title").getAsString(),
                                         event.get("date").getAsString(), event.get("place").getAsString(),
-                                        "blablabla", "Quelqu'un" ));
+                                        "blablabla", creator.get("username").getAsString() ));
                             }
                         }
                         LesEvenements.this.populate(resultEvent);
