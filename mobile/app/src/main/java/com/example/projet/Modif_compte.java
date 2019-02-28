@@ -97,7 +97,7 @@ public class Modif_compte extends AppCompatActivity {
         supp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sup = "http://10.0.2.2:8080/api/membre/delete/"+prefs.getString("id","");
+                String sup = getString(R.string.urlHttp)+"/api/membre/delete/"+prefs.getString("id","");
                 Ion.with(Modif_compte.this)
                         .load("DELETE",sup)
                         .asJsonObject()
@@ -134,7 +134,7 @@ public class Modif_compte extends AppCompatActivity {
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
-                    String url = "http://10.0.2.2:8080/api/membre/update/" + id;
+                    String url = getString(R.string.urlHttp)+"/api/membre/update/" + id;
                     final JsonObject json = new JsonObject();
                     json.addProperty("pseudo", mPseudoView.getText().toString());
                     json.addProperty("email", mEmailView.getText().toString());

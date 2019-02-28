@@ -103,7 +103,7 @@ public class LesEvenements extends AppCompatActivity {
         dialog.setTitle("Please wait");
         dialog.setMessage("Currently downloading...");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        String url = "http://10.0.2.2:8080/api/evenement/getAll/user/"+prefs.getString("id","");
+        String url = getString(R.string.urlHttp)+"/api/evenement/getAll/user/"+prefs.getString("id","");
         Ion.with(LesEvenements.this)
                 .load(url)
                 .asJsonArray()

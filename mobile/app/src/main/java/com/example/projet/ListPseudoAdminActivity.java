@@ -72,7 +72,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
         pseudo_creator.setText(pseudo);
         pseudoList  = new ArrayList<>();
         listViewPseudo = (ListView) findViewById(R.id.listPseudo);
-        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        String url = getString(R.string.urlHttp)+"/api/evenement/get/"+eventid;
         Ion.with(ListPseudoAdminActivity.this)
                 .load(url)
                 .asJsonObject()
@@ -109,7 +109,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                 final JsonObject json = new JsonObject();
                                 json.addProperty("idObject", pseudoList.get(i).getId());
                                 json.addProperty("typeObject", "user");
-                                String url = "http://10.0.2.2:8080/api/evenement/removeUser/"+eventid;
+                                String url = getString(R.string.urlHttp)+"/api/evenement/removeUser/"+eventid;
                                 Ion.with(ListPseudoAdminActivity.this)
                                         .load("PUT",url)
                                         .setJsonObjectBody(json)
@@ -154,7 +154,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                             pseudoajouter = dialogLayout.findViewById(R.id.ajoutpseudoET);
                             String recup = pseudoajouter.getText().toString();
 
-                            String url2 = "http://10.0.2.2:8080/api/membre/get/pseudo/"+recup;
+                            String url2 = getString(R.string.urlHttp)+"/api/membre/get/pseudo/"+recup;
                             Ion.with(ListPseudoAdminActivity.this)
                                     .load("GET",url2)
                                     .asJsonObject()
@@ -169,7 +169,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                                 final JsonObject json = new JsonObject();
                                                 json.addProperty("idObject", idpseudo);
                                                 json.addProperty("typeObject", "user");
-                                                String url = "http://10.0.2.2:8080/api/evenement/addUser/" + eventid;
+                                                String url = getString(R.string.urlHttp)+"/api/evenement/addUser/" + eventid;
                                                 Ion.with(ListPseudoAdminActivity.this)
                                                         .load("PUT", url)
                                                         .setJsonObjectBody(json)

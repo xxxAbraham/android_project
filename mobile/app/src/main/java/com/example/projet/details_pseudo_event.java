@@ -33,8 +33,8 @@ public class details_pseudo_event extends AppCompatActivity {
        Intent intent = getIntent();
         String eventid = intent.getStringExtra("eventid");
         String pseudoid = intent.getStringExtra("pseudoid");
-        String url1 = "http://10.0.2.2:8080/api/membre/get/"+pseudoid;
-        String urlevent = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        String url1 = getString(R.string.urlHttp)+"/api/membre/get/"+pseudoid;
+        String urlevent = getString(R.string.urlHttp)+"/api/evenement/get/"+eventid;
 
         final TextView title = (TextView) findViewById(R.id.titreEvent);
         final TextView balance = (TextView) findViewById(R.id.balance);
@@ -71,7 +71,7 @@ public class details_pseudo_event extends AppCompatActivity {
                         title.setText(result.get("title").getAsString());
                     }
                 });
-        String url = "http://10.0.2.2:8080/api/depense/get/eventuser/"+pseudoid+"/"+eventid;
+        String url = getString(R.string.urlHttp)+"/api/depense/get/eventuser/"+pseudoid+"/"+eventid;
         Ion.with(details_pseudo_event.this)
                 .load(url)
                 .asJsonArray()
@@ -87,7 +87,7 @@ public class details_pseudo_event extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     }
                 });
-        String url_balance = "http://10.0.2.2:8080/api/owing/get/"+pseudoid+"/"+eventid;
+        String url_balance = getString(R.string.urlHttp)+"/api/owing/get/"+pseudoid+"/"+eventid;
         Ion.with(details_pseudo_event.this)
                 .load(url_balance)
                 .asJsonObject()
@@ -107,7 +107,7 @@ public class details_pseudo_event extends AppCompatActivity {
 
                     }
                 });
-        String url_economy = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        String url_economy = getString(R.string.urlHttp)+"/api/depense/getExpenseTotal/"+eventid;
         Ion.with(details_pseudo_event.this)
                 .load(url_economy)
                 .asJsonObject()

@@ -102,7 +102,7 @@ public class detail_event_admin extends AppCompatActivity {
         supp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sup = "http://10.0.2.2:8080/api/evenement/delete/"+eventid;
+                String sup = getString(R.string.urlHttp)+"/api/evenement/delete/"+eventid;
                 Ion.with(detail_event_admin.this)
                         .load("DELETE",sup)
                         .asJsonObject()
@@ -141,7 +141,7 @@ public class detail_event_admin extends AppCompatActivity {
                         json.addProperty("userId", idpseudo);
                         json.addProperty("eventId", eventid);
 
-                        String url2 = "http://10.0.2.2:8080/api/depense/add";
+                        String url2 = getString(R.string.urlHttp)+"/api/depense/add";
                         Ion.with(detail_event_admin.this)
                                 .load("POST",url2)
                                 .setJsonObjectBody(json)
@@ -182,7 +182,7 @@ public class detail_event_admin extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         final ArrayList<User> lesinvites = new ArrayList<User>();
-        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        String url = getString(R.string.urlHttp)+"/api/evenement/get/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url)
                 .asJsonObject()
@@ -212,7 +212,7 @@ public class detail_event_admin extends AppCompatActivity {
                         detail_event_admin.this.populate(lesinvites);
                     }
                 });
-        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        String url2 = getString(R.string.urlHttp)+"/api/depense/getExpenseTotal/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url2)
                 .asJsonObject()
@@ -223,7 +223,7 @@ public class detail_event_admin extends AppCompatActivity {
                         budget.setText(total.toString()+" euros");
                     }});
 
-        String url3 = "http://10.0.2.2:8080/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
+        String url3 = getString(R.string.urlHttp)+"/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url3)
                 .asJsonObject()

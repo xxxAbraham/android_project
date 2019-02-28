@@ -104,7 +104,7 @@ public class ListEventAdminActivity extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
 
-        String url = "http://10.0.2.2:8080/api/evenement/getAll/userCreator/"+prefs.getString("id","");
+        String url = getString(R.string.urlHttp)+"/api/evenement/getAll/userCreator/"+prefs.getString("id","");
         Ion.with(this)
                 .load(url)
                 .progressDialog(dialog)

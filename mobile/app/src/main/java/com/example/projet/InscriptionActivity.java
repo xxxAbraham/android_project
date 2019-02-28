@@ -80,7 +80,7 @@ public class InscriptionActivity extends AppCompatActivity {
                 if (cancel) {
                     focusView.requestFocus();
                 } else {
-                   String url = "http://10.0.2.2:8080/api/membre/add";
+                   String url = getString(R.string.urlHttp)+"/api/membre/add";
                     final JsonObject json = new JsonObject();
                     json.addProperty("pseudo", mPseudoView.getText().toString());
                     json.addProperty("email", mEmailView.getText().toString());

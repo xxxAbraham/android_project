@@ -72,7 +72,7 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
             }
         });
 
-        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        String url = getString(R.string.urlHttp)+"/api/evenement/get/"+eventid;
         Ion.with(ModifEventActivity.this)
                 .load(url)
                 .asJsonObject()
@@ -120,7 +120,7 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
                     focusView.requestFocus();
                 } else {
                     Log.e("date avant", date.getText().toString());
-                    String urlmodif = "http://10.0.2.2:8080/api/evenement/update/" + eventid;
+                    String urlmodif = getString(R.string.urlHttp)+"/api/evenement/update/" + eventid;
                     final JsonObject json = new JsonObject();
                     json.addProperty("userId", prefs.getString("id", ""));
                     json.addProperty("title", title.getText().toString());

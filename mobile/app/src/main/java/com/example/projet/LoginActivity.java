@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });*/
                 System.out.println("IDENTIFICATION");
-                String url = "http://10.0.2.2:8080/api/membre/get/email/"+mEmailView.getText().toString();
+                String url = getString(R.string.urlHttp)+"/api/membre/get/email/"+mEmailView.getText().toString();
                 Ion.with(getApplicationContext())
                         .load(url)
                         .asJsonObject()

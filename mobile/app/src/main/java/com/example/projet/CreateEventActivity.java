@@ -133,7 +133,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                         if (cancel) {
                             focusView.requestFocus();
                         } else {
-                            String url = "http://10.0.2.2:8080/api/evenement/add";
+                            String url = getString(R.string.urlHttp)+"/api/evenement/add";
                             final JsonObject json = new JsonObject();
                             json.addProperty("userId", pseudo);
                             json.addProperty("title", name.getText().toString());

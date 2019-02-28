@@ -41,5 +41,5 @@
     <string name="title_creer">Creer</string>
     <string name="title_my_events">Mes events</string>
 
-
+    <string name="urlHttp">http://10.0.2.2:8080</string>
 </resources>

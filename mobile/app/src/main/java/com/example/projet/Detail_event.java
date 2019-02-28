@@ -71,7 +71,7 @@ public class Detail_event extends AppCompatActivity {
             eventid = intent.getStringExtra("eventid");
         }
 
-        String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
+        String url = getString(R.string.urlHttp)+"/api/evenement/get/"+eventid;
         Ion.with(Detail_event.this)
                 .load(url)
                 .asJsonObject()
@@ -147,7 +147,7 @@ public class Detail_event extends AppCompatActivity {
                         json.addProperty("userId", idpseudo);
                         json.addProperty("eventId", eventid);
 
-                        String url2 = "http://10.0.2.2:8080/api/depense/add";
+                        String url2 = getString(R.string.urlHttp)+"/api/depense/add";
                         Ion.with(Detail_event.this)
                                 .load("POST",url2)
                                 .setJsonObjectBody(json)
@@ -190,7 +190,7 @@ public class Detail_event extends AppCompatActivity {
                                 final JsonObject json = new JsonObject();
                                 json.addProperty("idObject", prefs.getString("id",""));
                                 json.addProperty("typeObject", "user");
-                                String url = "http://10.0.2.2:8080/api/evenement/removeUser/"+eventid;
+                                String url = getString(R.string.urlHttp)+"/api/evenement/removeUser/"+eventid;
                                 Ion.with(Detail_event.this)
                                         .load("PUT",url)
                                         .setJsonObjectBody(json)
@@ -220,7 +220,7 @@ public class Detail_event extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
+        String url2 = getString(R.string.urlHttp)+"/api/depense/getExpenseTotal/"+eventid;
         Ion.with(Detail_event.this)
                 .load(url2)
                 .asJsonObject()
@@ -231,7 +231,7 @@ public class Detail_event extends AppCompatActivity {
                         budget.setText(total.toString()+ " euros");
                     }});
 
-        String url3 = "http://10.0.2.2:8080/api/owing/get/"+idpseudo+"/"+eventid;
+        String url3 = getString(R.string.urlHttp)+"/api/owing/get/"+idpseudo+"/"+eventid;
         Ion.with(Detail_event.this)
                 .load(url3)
                 .asJsonObject()
