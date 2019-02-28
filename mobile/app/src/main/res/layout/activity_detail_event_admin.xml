@@ -154,7 +154,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/img_budget"
                 android:gravity="center_vertical"
-                android:text="Budget par personne : "
+                android:text="Budget total : "
                 android:textSize="24sp" />
 
             <TextView

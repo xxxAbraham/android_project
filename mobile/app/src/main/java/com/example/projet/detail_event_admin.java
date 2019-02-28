@@ -228,7 +228,8 @@ public class detail_event_admin extends AppCompatActivity {
                     public void onCompleted(Exception e, JsonObject result) {
                         Double bal = result.get("owing").getAsDouble();
                         bal *= -1;
-                        balance.setText(bal.toString()+ " euros");
+                        java.text.DecimalFormat df = new java.text.DecimalFormat("0.##");
+                        balance.setText(df.format(bal)+ " euros");
                         if(bal>0){
                             balance.setTextColor(Color.RED);
                         }
