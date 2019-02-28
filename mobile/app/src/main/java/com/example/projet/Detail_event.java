@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -109,20 +111,48 @@ public class Detail_event extends AppCompatActivity {
         myadpater = new ArrayAdapterDetail(this,invites);
         list_invites.setAdapter(myadpater);
 
-
-       /* plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentplus = new Intent(Detail_event.this,ListPseudoAdminActivity.class);
-                intentplus.putExtra("eventid",eventid);
-                startActivity(intentplus);
-            }
-        });*/
-
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                android.app.AlertDialog.Builder dialogDonner = new AlertDialog.Builder(
+                        Detail_event.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogLayout = inflater.inflate(R.layout.dialog_adddepense, null);
+                dialogDonner.setView(dialogLayout);
+                final EditText motif = dialogLayout.findViewById(R.id.motif);
+                final EditText montant = dialogLayout.findViewById(R.id.montant);
 
+                dialogDonner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        String strMotif = motif.getText().toString();
+                        String strMontant = montant.getText().toString();
+                        Double dbMontant = Double.parseDouble(strMontant);
+
+                        final JsonObject json = new JsonObject();
+                        json.addProperty("amount", dbMontant);
+                        json.addProperty("wording", strMotif);
+
+                        json.addProperty("userId", idpseudo);
+                        json.addProperty("eventId", eventid);
+
+                        String url2 = "http://10.0.2.2:8080/api/depense/add";
+                        Ion.with(Detail_event.this)
+                                .load("POST",url2)
+                                .setJsonObjectBody(json)
+                                .asJsonObject()
+                                .setCallback(new FutureCallback<JsonObject>() {
+                                    @Override
+                                    public void onCompleted(Exception e, JsonObject result) {
+                                        Detail_event.this.onStart();
+
+                                    }});
+
+                    }
+                });
+
+                dialogDonner.show();
             }
         });
 
@@ -140,7 +170,7 @@ public class Detail_event extends AppCompatActivity {
                 AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
                         Detail_event.this);
                 alertDialog2.setTitle("Je participe?");
-                alertDialog2.setMessage("Are you sure you want delete this file?");
+                alertDialog2.setMessage("Participez-vous?");
                 alertDialog2.setIcon(R.drawable.ic_delete_36dp);
 
                 alertDialog2.setPositiveButton("NON",
@@ -188,7 +218,7 @@ public class Detail_event extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         Double total = result.get("total").getAsDouble();
-                        budget.setText(total.toString());
+                        budget.setText(total.toString()+ " euros");
                     }});
 
         String url3 = "http://10.0.2.2:8080/api/owing/get/"+idpseudo+"/"+eventid;
@@ -199,7 +229,15 @@ public class Detail_event extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         Double bal = result.get("owing").getAsDouble();
-                        balance.setText(bal.toString());
+                        bal *= -1;
+                        balance.setText(bal.toString()+ " euros");
+                        if(bal>0){
+                            balance.setTextColor(Color.RED);
+                        }
+                        else if (bal <0) {
+                            balance.setTextColor(Color.GREEN);
+                        }
+
                     }});
     }
 }

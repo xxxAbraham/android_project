@@ -65,22 +65,20 @@ public class Modif_compte extends AppCompatActivity {
     private String password;
     private String pseudo;
     private String mail;
+    TextView supp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modif_compte);
-        // Set up the login form.
+        supp= findViewById(R.id.supp);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPseudoView = (AutoCompleteTextView) findViewById(R.id.pseudo);
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         pseudo = prefs.getString("pseudo", null);
         mail = prefs.getString("mail", null);
         final String id = prefs.getString("id", null);
         password = prefs.getString("password", null);
-        /*Bundle bundle = getIntent().getExtras();
-        final String mail = bundle.getString("KEY_MAIL");
-        final String pseudo = bundle.getString("KEY_PSEUDO");*/
         mPseudoView.setText(pseudo);
         mEmailView.setText(mail);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -94,6 +92,22 @@ public class Modif_compte extends AppCompatActivity {
                 Intent navigation = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(navigation);
                 finish();
+            }
+        });
+        supp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sup = "http://10.0.2.2:8080/api/membre/delete/"+prefs.getString("id","");
+                Ion.with(Modif_compte.this)
+                        .load("DELETE",sup)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                setResult(123);
+                                finish();
+
+                            }});
             }
         });
         Button confirmer = (Button) findViewById(R.id.email_sign_in_button);

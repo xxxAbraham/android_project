@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageButton
+                android:id="@+id/retour"
                 android:layout_margin="10dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -49,19 +50,11 @@
         android:layout_below="@+id/imagesGridToolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
-
-    <ListView
-        android:id="@+id/list_dep"
-        android:layout_below="@+id/img_user"
-        android:layout_width="match_parent"
-        android:layout_height="400dp">
-
-    </ListView>
     <LinearLayout
         android:id="@+id/contrib_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_dep"
+        android:layout_below="@+id/img_user"
         android:layout_margin="10dp">
 
         <ImageView
@@ -76,9 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
+            android:textSize="24sp"
             android:text="@string/title_activity_les_evenements" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/layout_balance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contrib_total"
@@ -95,7 +90,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_activity_les_evenements"
+            android:textSize="24sp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
+    <ListView
+        android:id="@+id/list_dep"
+        android:layout_below="@+id/layout_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
 
 </RelativeLayout>

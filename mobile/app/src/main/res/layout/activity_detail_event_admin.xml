@@ -197,8 +197,16 @@
                 style="@style/button"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"/>
-
+            <TextView
+                android:id="@+id/supp"
+                android:layout_below="@+id/donner"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suprimer l'événement"
+                android:layout_centerHorizontal="true"/>
         </RelativeLayout>
+
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
@@ -207,6 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_plus"
-        android:layout_margin="16dp" />
+        android:src="@drawable/ic_control_point_black_24dp"
+        android:layout_margin="16dp"
+        android:background="@color/colorPrimaryDark"/>
 </RelativeLayout>

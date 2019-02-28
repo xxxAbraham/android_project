@@ -161,25 +161,30 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
                                     .setCallback(new FutureCallback<JsonObject>() {
                                         @Override
                                         public void onCompleted(Exception e, JsonObject result) {
-                                            idpseudo = result.get("id").getAsString();
-                                            nompseudo = result.get("username").getAsString();
+                                            if(!result.get("id").isJsonNull()) {
+                                                idpseudo = result.get("id").getAsString();
+                                                nompseudo = result.get("username").getAsString();
 
 
-                                            final JsonObject json = new JsonObject();
-                                            json.addProperty("idObject", idpseudo);
-                                            json.addProperty("typeObject", "user");
-                                            String url = "http://10.0.2.2:8080/api/evenement/addUser/" + eventid;
-                                            Ion.with(ListPseudoAdminActivity.this)
-                                                    .load("PUT", url)
-                                                    .setJsonObjectBody(json)
-                                                    .asJsonObject()
-                                                    .setCallback(new FutureCallback<JsonObject>() {
-                                                        @Override
-                                                        public void onCompleted(Exception e, JsonObject result) {
-                                                            pseudoList.add(new User(nompseudo, idpseudo));
-                                                            myAdapter.notifyDataSetChanged();
-                                                        }
-                                                    });
+                                                final JsonObject json = new JsonObject();
+                                                json.addProperty("idObject", idpseudo);
+                                                json.addProperty("typeObject", "user");
+                                                String url = "http://10.0.2.2:8080/api/evenement/addUser/" + eventid;
+                                                Ion.with(ListPseudoAdminActivity.this)
+                                                        .load("PUT", url)
+                                                        .setJsonObjectBody(json)
+                                                        .asJsonObject()
+                                                        .setCallback(new FutureCallback<JsonObject>() {
+                                                            @Override
+                                                            public void onCompleted(Exception e, JsonObject result) {
+                                                                pseudoList.add(new User(nompseudo, idpseudo));
+                                                                myAdapter.notifyDataSetChanged();
+                                                            }
+                                                        });
+                                            }
+                                            else{
+                                                Toast.makeText(ListPseudoAdminActivity.this,"Ce pseudo n'existe pas", Toast.LENGTH_SHORT).show();
+                                            }
                                         }});
                         }
                     });
@@ -198,6 +203,7 @@ public class ListPseudoAdminActivity extends AppCompatActivity {
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(123);
                 finish();
             }
         });

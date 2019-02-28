@@ -123,6 +123,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/sauve" />
+            <TextView
+                android:id="@+id/supp"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suprimer le compte"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 

@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +29,12 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     String eventid = "";
-    TextView title, date, place, desc;
+    TextView title, date, place, desc, supp;
     Calendar d = Calendar.getInstance();
     String year;
     String month;
     String day;
+    ImageButton retour;
     DatePickerDialog datePickerDialog;
     Button valider;
     @Override
@@ -44,6 +46,15 @@ public class ModifEventActivity extends AppCompatActivity implements DatePickerD
         place = findViewById(R.id.txt_adresseModif);
         desc = findViewById(R.id.txt_descriptionModif);
         valider = findViewById(R.id.btnFinalModif);
+        retour = findViewById(R.id.btnBack_modifevent);
+
+        retour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         final SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         final Intent intent = getIntent();
         if(intent.hasExtra("eventid")){

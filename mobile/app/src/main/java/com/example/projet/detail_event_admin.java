@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.projet.model.Evenement;
 import com.example.projet.model.User;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -31,7 +35,7 @@ public class detail_event_admin extends AppCompatActivity {
     private int CODE = 123;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     ArrayList<User> invites;
-    TextView nom_event, pseudo, description, budget, balance;
+    TextView nom_event, pseudo, description, budget, balance,supp;
     ListView list_invites;
     ArrayAdapterDetailAdmin myadpater;
     String eventid = "";
@@ -94,7 +98,23 @@ public class detail_event_admin extends AppCompatActivity {
                 startActivityForResult(intentplus, CODE);
             }
         });
+        supp = findViewById(R.id.supp);
+        supp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sup = "http://10.0.2.2:8080/api/evenement/delete/"+eventid;
+                Ion.with(detail_event_admin.this)
+                        .load("DELETE",sup)
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                finish();
 
+                            }});
+
+            }
+        });
         donner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,18 +143,20 @@ public class detail_event_admin extends AppCompatActivity {
 
                         String url2 = "http://10.0.2.2:8080/api/depense/add";
                         Ion.with(detail_event_admin.this)
-                                .load("PUT",url2)
+                                .load("POST",url2)
                                 .setJsonObjectBody(json)
                                 .asJsonObject()
                                 .setCallback(new FutureCallback<JsonObject>() {
                                     @Override
                                     public void onCompleted(Exception e, JsonObject result) {
+                                        detail_event_admin.this.onStart();
+
                                     }});
+
                     }
                 });
 
                 dialogDonner.show();
-                onRestart();
             }
         });
 
@@ -151,7 +173,7 @@ public class detail_event_admin extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CODE) {
             if (resultCode == RESULT_OK) {
-              myadpater.notifyDataSetChanged();
+                onRestart();
             }
         }
     }
@@ -159,6 +181,7 @@ public class detail_event_admin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        final ArrayList<User> lesinvites = new ArrayList<User>();
         String url = "http://10.0.2.2:8080/api/evenement/get/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url)
@@ -180,9 +203,11 @@ public class detail_event_admin extends AppCompatActivity {
                         Iterator it = userList.iterator();
                         while (it.hasNext()){
                             JsonObject jsonUser = (JsonObject) it.next();
-                            invites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
+                            lesinvites.add(new User(jsonUser.get("username").getAsString(), jsonUser.get("id").getAsString()));
                         }
-                    }});
+                        detail_event_admin.this.populate(lesinvites);
+                    }
+                });
         String url2 = "http://10.0.2.2:8080/api/depense/getExpenseTotal/"+eventid;
         Ion.with(detail_event_admin.this)
                 .load(url2)
@@ -191,7 +216,7 @@ public class detail_event_admin extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         Double total = result.get("total").getAsDouble();
-                        budget.setText(total.toString());
+                        budget.setText(total.toString()+" euros");
                     }});
 
         String url3 = "http://10.0.2.2:8080/api/owing/get/"+prefs.getString("id","")+"/"+eventid;
@@ -202,7 +227,21 @@ public class detail_event_admin extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         Double bal = result.get("owing").getAsDouble();
-                        balance.setText(bal.toString());
+                        bal *= -1;
+                        balance.setText(bal.toString()+ " euros");
+                        if(bal>0){
+                            balance.setTextColor(Color.RED);
+                        }
+                        else if (bal <0) {
+                            balance.setTextColor(Color.GREEN);
+                        }
+
                     }});
+    }
+
+    public void populate(ArrayList<User> listEvent){
+        this.myadpater.clear();
+        this.myadpater.addAll(listEvent);
+        this.myadpater.notifyDataSetChanged();
     }
 }

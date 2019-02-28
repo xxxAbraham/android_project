@@ -2,6 +2,7 @@ package com.example.projet;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent gomodif = new Intent(getApplicationContext(),Modif_compte.class);
-                startActivity(gomodif);
+                startActivityForResult(gomodif, 123);
             }
         });
 
@@ -69,5 +70,16 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            if (requestCode == 123) {
+                if (resultCode == RESULT_OK) {
+                    finish();
+                }
+            }
+
     }
 }
